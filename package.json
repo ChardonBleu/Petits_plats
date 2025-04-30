@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.4"
+  },
+  "name": "petits_plats",
+  "description": "## Les petits plats Ce dépôt correspond au Projet 7 de la formation Javascript React d'Openclassrooms.",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.1",
+    "globals": "^16.0.0",
+    "prettier": "3.5.3",
+    "tailwindcss": "^4.1.4"
+  },
+  "scripts": {
+    "build": "tailwindcss -i ./assets/css/style.css -o ./assets/css/output.css --watch",
+    "lint": "npx eslint .",
+    "fmt": "npx prettier . --check",
+    "fmt:fix": "npx prettier . --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
