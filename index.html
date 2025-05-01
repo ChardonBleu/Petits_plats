@@ -6,30 +6,56 @@
     <meta charset="utf-8" />
     <title>Les petits plats</title>
   </head>
-  <body class="">
-    <header id="header" class="">
-      <div class=""><img src="./assets/images/logo.png" alt="Logo Les petits plats"></div>
-      
-      <h1 class="">
-        CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+  <body class="m-auto font-[manrope-regular] text-regular">
+    <header id="header" class="flex flex-col items-center justify-center">
+      <div class="m-14 self-start">
+        <img src="./assets/icons/logo.png" alt="Logo Les petits plats" />
+      </div>
+
+      <h1
+        class="font-anton text-mustard text-center text-title1 leading-18 mt-24 mb-8"
+      >
+        CHERCHEZ PARMI PLUS DE 1500 RECETTES<br />DU QUOTIDIEN,SIMPLES ET
+        DÉLICIEUSES
       </h1>
 
-      <form id="search" class="">
-
+      <form
+        id="search"
+        class="mb-36 bg-white w-[60%] h-[72px] p-[10px] flex justify-between items-center rounded-lg"
+      >
+        <input
+          type="search"
+          id="search-input"
+          name="recipes search"
+          placeholder="Rechercher une recette, un ingrédient, ..."
+          class="w-full text-form"
+        />
+        <button
+          class="group bg-anthracite rounded-lg h-[52px] w-[52px] flex items-center justify-center hover:bg-mustard transition-colors duration-500"
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            stroke="white"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="group-hover:stroke-black transition-colors duration-500"
+          >
+            <circle cx="10" cy="10" r="9.5" />
+            <line x1="18.3536" y1="18.6464" x2="27.3536" y2="27.6464" />
+          </svg>
+        </button>
       </form>
     </header>
 
-    <main>
-      <section id="tag">
-        <form id="filters">
-
-        </form>
-        <h2>1500 recettes</h2>
+    <main class="bg-light-grey flex flex-col justify-center items-center">
+      <section id="tag" class="w-[90%] flex">
+        <form id="filters"></form>
+        <h2 class="font-anton text-title2">1500 recettes</h2>
       </section>
 
-      <section id="recipes">
-
-      </section>
+      <section id="recipes" class="w-[90%]"></section>
     </main>
 
     <script type="module" src="scripts/App.js"></script>

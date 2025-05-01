@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Anton";
+  src: url(../fonts/Anton-Regular.ttf) format("truetype");
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Manrope-regular";
+  src: url(../fonts/Manrope-VariableFont_wght.ttf) format("truetype");
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Manrope-medium";
+  src: url(../fonts/Manrope-VariableFont_wght.ttf) format("truetype");
+  font-display: swap;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Manrope-bold";
+  src: url(../fonts/Manrope-VariableFont_wght.ttf) format("truetype");
+  font-display: swap;
+  font-weight: 700;
+}
+
+@theme {
+  --color-light-grey: #c6c6c6;
+  --color-anthracite: #1b1b1b;
+  --color-mustard: #ffd15b;
+  --color-medium-grey: #7a7a7a;
+
+  --font-anton: Anton, Arial, Helvetica, sans-serif;
+  /* --font-manrope-regular: Manrope-regular, Arial, Helvetica, sans-serif;
+  --font-manrope-miedium: Manrope-medium, Arial, Helvetica, sans-serif;
+  --font-manrope-bold: Manrope-bold, Arial, Helvetica, sans-serif; */
+
+  --header-image: url(/assets/images/lampos-aritonang.jpg);
+
+  --text-mini: 0.75rem; /*12px*/
+  --text-regular: 0.875rem; /*14px*/
+  --text-form: 1rem; /*16px*/
+  --text-title1: 2.75rem; /*44px*/
+  --text-title2: 1.313rem; /*21px*/
+  --text-title3: 1.125; /*18px*/
+}
+
+header {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../images/lampos-aritonang.jpg);
+}
