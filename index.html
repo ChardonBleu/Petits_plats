@@ -3,6 +3,13 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./assets/css/output.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <meta charset="utf-8" />
     <title>Les petits plats</title>
   </head>
@@ -28,10 +35,15 @@
           id="search-input"
           name="recipes search"
           placeholder="Rechercher une recette, un ingrédient, ..."
-          class="w-full text-form"
+          class="w-full text-form text-medium-grey cursor-pointer outline-none"
         />
         <button
-          class="group bg-anthracite rounded-lg h-[52px] w-[52px] flex items-center justify-center hover:bg-mustard transition-colors duration-500"
+          class="h-[52px] w-[52px] flex items-center justify-center cursor-pointer"
+        >
+          <img src="assets/icons/close.png" alt="logo croix" />
+        </button>
+        <button
+          class="group bg-anthracite rounded-lg h-[52px] w-[52px] flex items-center justify-center hover:bg-mustard transition-colors duration-500 cursor-pointer"
         >
           <svg
             width="28"
@@ -49,13 +61,40 @@
       </form>
     </header>
 
-    <main class="bg-light-grey flex flex-col justify-center items-center">
-      <section id="tag" class="w-[90%] flex">
-        <form id="filters"></form>
-        <h2 class="font-anton text-title2">1500 recettes</h2>
+    <main class="bg-light-grey flex flex-col justify-center items-center pb-10">
+      <section
+        aria-label="tags filtering and recipes counter"
+        class="w-[90%] mt-[21px] items-center font-[manrope-regular] text-regular relative"
+      >
+        <div
+          id="ingredientsTags"
+          aria-label="ingredients tags"
+          class="bg-white rounded-lg w-[200px] absolute top-4 left-0"
+        ></div>
+
+        <div
+          id="appliancesTags"
+          aria-label="appliances tags"
+          class="bg-white rounded-lg w-[200px] absolute top-4 left-[250px]"
+        ></div>
+
+        <div
+          id="ustensilsTags"
+          aria-label="ustensils tags"
+          class="bg-white rounded-lg w-[200px] absolute top-4 left-[500px]"
+        ></div>
+
+        <h2
+          aria-label="active recipes counter"
+          class="font-anton text-title2 absolute right-0 top-6"
+        >
+          1500 recettes
+        </h2>
       </section>
 
-      <section id="recipes" class="w-[90%]"></section>
+      <section id="recipes" class="w-[90%] pt-5 flex justify-center mt-26">
+        <img src="assets/images/lampos-aritonang.jpg" alt="" />
+      </section>
     </main>
 
     <script type="module" src="scripts/App.js"></script>

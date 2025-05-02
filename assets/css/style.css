@@ -35,9 +35,9 @@
   --color-medium-grey: #7a7a7a;
 
   --font-anton: Anton, Arial, Helvetica, sans-serif;
-  /* --font-manrope-regular: Manrope-regular, Arial, Helvetica, sans-serif;
-  --font-manrope-miedium: Manrope-medium, Arial, Helvetica, sans-serif;
-  --font-manrope-bold: Manrope-bold, Arial, Helvetica, sans-serif; */
+  --font-manrope-regular: Manrope-regular, Arial, Helvetica, sans-serif;
+  --font-manrope-medium: Manrope-medium, Arial, Helvetica, sans-serif;
+  --font-manrope-bold: Manrope-bold, Arial, Helvetica, sans-serif;
 
   --header-image: url(/assets/images/lampos-aritonang.jpg);
 
@@ -53,4 +53,15 @@ header {
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(../images/lampos-aritonang.jpg);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.discret-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.discret-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
