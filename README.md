@@ -53,7 +53,7 @@ npm run fmt:fix
 
 ## Hébergement GitHub
 
-!!! A REMPLIR !!!
+[chardonbleu.github.io/Petits_plats/](https://chardonbleu.github.io/Petits_plats/)
 
 ## Sources utilisées:
 
