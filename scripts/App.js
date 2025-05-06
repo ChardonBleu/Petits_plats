@@ -6,6 +6,7 @@ import { recipes } from "./data/recipes.js";
 import { Recipe } from "./models/Recipe.js";
 import { capitalizeSentence, sortAndRemovesDuplicates } from "./utils/functions.js"
 import { ingredients, appliances, ustensils } from "./utils/constants.js"
+import { displayRecipes } from "./pages/recipes.js"
 
 class App {
   constructor() {
@@ -39,7 +40,7 @@ class App {
     manageTags(appliances);    
     manageTags(ustensils);
 
-    // displayRecipes(this.recipes)
+    displayRecipes(this.recipes)
   }
 }
 
