@@ -1,10 +1,11 @@
 import {
-  manageIngredientsTags,
-  displayIngredientsTagsCard,
-} from "./search/ingredientTags.js";
+  manageTags,
+  displayTagsCard,
+} from "./search/tags.js";
 import { recipes } from "./data/recipes.js";
 import { Recipe } from "./models/Recipe.js";
-import { capitalizeSentence } from "./utils/general.js"
+import { capitalizeSentence, sortAndRemovesDuplicates } from "./utils/functions.js"
+import { ingredients, appliances, ustensils } from "./utils/constants.js"
 
 class App {
   constructor() {
@@ -14,7 +15,7 @@ class App {
     this.ustensils = [];
   }
 
-  InitializeApp() {
+  fetchDatas() {
     this.recipes = recipes.map((recipe) => new Recipe(recipe));
     this.recipes.forEach((recipe) => {
       recipe.ingredients.forEach((ingredient) =>
@@ -24,19 +25,21 @@ class App {
         this.ustensils.push(capitalizeSentence(ustensil.toLowerCase()))          
       );  
     });
-    this.ingredients = [...new Set(this.ingredients)].sort((a, b) => a.localeCompare(b))
-    this.appliances = [...new Set(this.appliances)].sort((a, b) => a.localeCompare(b))
-    this.ustensils = [...new Set(this.ustensils)].sort((a, b) => a.localeCompare(b))
+    this.ingredients = sortAndRemovesDuplicates(this.ingredients)
+    this.appliances = sortAndRemovesDuplicates(this.appliances)
+    this.ustensils = sortAndRemovesDuplicates(this.ustensils)
   }
 
   async main() {
-    this.InitializeApp();
-    displayIngredientsTagsCard(this.ingredients, "Ingredients");
-    displayIngredientsTagsCard(this.appliances, "Appliances")
-    displayIngredientsTagsCard(this.ustensils, "Ustensils");
-    manageIngredientsTags("Ingredients");    ;
-    manageIngredientsTags("Appliances");    
-    manageIngredientsTags("Ustensils");
+    this.fetchDatas();
+    displayTagsCard(this.ingredients, ingredients);
+    displayTagsCard(this.appliances, appliances)
+    displayTagsCard(this.ustensils, ustensils);
+    manageTags(ingredients);    ;
+    manageTags(appliances);    
+    manageTags(ustensils);
+
+    // displayRecipes(this.recipes)
   }
 }
 
