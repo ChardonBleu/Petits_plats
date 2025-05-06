@@ -10,6 +10,8 @@
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
     --default-transition-duration: 150ms;
@@ -210,12 +212,6 @@
   .z-10 {
     z-index: 10;
   }
-  .col-auto {
-    grid-column: auto;
-  }
-  .m-8 {
-    margin: calc(var(--spacing) * 8);
-  }
   .m-14 {
     margin: calc(var(--spacing) * 14);
   }
@@ -234,17 +230,11 @@
   .mt-\[21px\] {
     margin-top: 21px;
   }
-  .mr-2 {
-    margin-right: calc(var(--spacing) * 2);
-  }
   .mr-3 {
     margin-right: calc(var(--spacing) * 3);
   }
-  .mr-8 {
-    margin-right: calc(var(--spacing) * 8);
-  }
-  .mb-2 {
-    margin-bottom: calc(var(--spacing) * 2);
+  .mb-1 {
+    margin-bottom: calc(var(--spacing) * 1);
   }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
@@ -255,23 +245,20 @@
   .mb-36 {
     margin-bottom: calc(var(--spacing) * 36);
   }
-  .ml-2 {
-    margin-left: calc(var(--spacing) * 2);
-  }
   .ml-3 {
     margin-left: calc(var(--spacing) * 3);
   }
   .flex {
     display: flex;
   }
-  .grid {
-    display: grid;
-  }
   .hidden {
     display: none;
   }
   .table {
     display: table;
+  }
+  .h-96 {
+    height: calc(var(--spacing) * 96);
   }
   .h-\[36px\] {
     height: 36px;
@@ -282,14 +269,23 @@
   .h-\[72px\] {
     height: 72px;
   }
-  .h-\[76px\] {
-    height: 76px;
-  }
   .h-\[80px\] {
     height: 80px;
   }
   .h-\[250px\] {
     height: 250px;
+  }
+  .h-\[500px\] {
+    height: 500px;
+  }
+  .h-\[650px\] {
+    height: 650px;
+  }
+  .h-\[700px\] {
+    height: 700px;
+  }
+  .h-\[800px\] {
+    height: 800px;
   }
   .h-full {
     height: 100%;
@@ -297,11 +293,11 @@
   .max-h-72 {
     max-height: calc(var(--spacing) * 72);
   }
-  .max-h-\[76px\] {
-    max-height: 76px;
-  }
   .min-h-10 {
     min-height: calc(var(--spacing) * 10);
+  }
+  .min-h-96 {
+    min-height: calc(var(--spacing) * 96);
   }
   .w-\[30\%\] {
     width: 30%;
@@ -333,27 +329,6 @@
   .resize {
     resize: both;
   }
-  .auto-cols-\[30\%\] {
-    grid-auto-columns: 30%;
-  }
-  .auto-cols-\[50\%\] {
-    grid-auto-columns: 50%;
-  }
-  .auto-cols-\[500px\] {
-    grid-auto-columns: 500px;
-  }
-  .auto-cols-auto {
-    grid-auto-columns: auto;
-  }
-  .auto-cols-max {
-    grid-auto-columns: max-content;
-  }
-  .auto-cols-min {
-    grid-auto-columns: min-content;
-  }
-  .grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
   .flex-col {
     flex-direction: column;
   }
@@ -372,31 +347,14 @@
   .justify-center {
     justify-content: center;
   }
-  .gap-10 {
-    gap: calc(var(--spacing) * 10);
-  }
   .gap-x-\[5\%\] {
     column-gap: 5%;
-  }
-  .gap-y-4 {
-    row-gap: calc(var(--spacing) * 4);
-  }
-  .gap-y-8 {
-    row-gap: calc(var(--spacing) * 8);
   }
   .gap-y-10 {
     row-gap: calc(var(--spacing) * 10);
   }
   .self-start {
     align-self: flex-start;
-  }
-  .justify-self-start {
-    justify-self: flex-start;
-  }
-  .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
   .overflow-hidden {
     overflow: hidden;
@@ -447,9 +405,6 @@
   .object-cover {
     object-fit: cover;
   }
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
-  }
   .p-8 {
     padding: calc(var(--spacing) * 8);
   }
@@ -471,12 +426,6 @@
   .pt-6 {
     padding-top: calc(var(--spacing) * 6);
   }
-  .pt-8 {
-    padding-top: calc(var(--spacing) * 8);
-  }
-  .pt-10 {
-    padding-top: calc(var(--spacing) * 10);
-  }
   .pr-2 {
     padding-right: calc(var(--spacing) * 2);
   }
@@ -492,9 +441,6 @@
   .pb-6 {
     padding-bottom: calc(var(--spacing) * 6);
   }
-  .pb-8 {
-    padding-bottom: calc(var(--spacing) * 8);
-  }
   .pb-10 {
     padding-bottom: calc(var(--spacing) * 10);
   }
@@ -506,6 +452,12 @@
   }
   .pl-3 {
     padding-left: calc(var(--spacing) * 3);
+  }
+  .pl-4 {
+    padding-left: calc(var(--spacing) * 4);
+  }
+  .pl-10 {
+    padding-left: calc(var(--spacing) * 10);
   }
   .text-center {
     text-align: center;
@@ -527,6 +479,10 @@
   }
   .font-manrope-regular {
     font-family: var(--font-manrope-regular);
+  }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
   }
   .text-form {
     font-size: var(--text-form);

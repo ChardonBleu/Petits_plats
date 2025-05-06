@@ -2,6 +2,10 @@ import {
   tagFilterTemplate,
   optionTagTemplate,
 } from "../components/tagFilterCard.js";
+import {
+  capitalizeSentence,
+  sortAndRemovesDuplicates,
+} from "../utils/functions.js";
 
 export function openFilterTag(listTags, formTag, openBtn, closeBtn) {
   listTags.classList.remove("hidden");
@@ -19,7 +23,26 @@ export function closeFilterTag(listTags, formTag, openBtn, closeBtn) {
   closeBtn.classList.add("hidden");
 }
 
-export function updteListTags(listTags, inputTag) {
+export function getTagsListsFromRecipes(recipes) {
+  let ingredients = [];
+  let appliances = [];
+  let ustensils = [];
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) =>
+      ingredients.push(capitalizeSentence(ingredient.ingredient.toLowerCase())),
+    );
+    appliances.push(capitalizeSentence(recipe.appliance.toLowerCase()));
+    recipe.ustensils.forEach((ustensil) =>
+      ustensils.push(capitalizeSentence(ustensil.toLowerCase())),
+    );
+  });
+  ingredients = sortAndRemovesDuplicates(ingredients);
+  appliances = sortAndRemovesDuplicates(appliances);
+  ustensils = sortAndRemovesDuplicates(ustensils);
+  return [ingredients, appliances, ustensils]
+}
+
+export function updateListTags(listTags, inputTag) {
   const options = listTags.querySelectorAll("option");
   inputTag.addEventListener("input", () => {
     var text = inputTag.value.toUpperCase();
@@ -34,18 +57,18 @@ export function updteListTags(listTags, inputTag) {
 }
 
 export function clearInputTag(tagKey, listTags) {
-  const clearBtn = document.getElementById(tagKey+"ClearBtn")
-  clearBtn.addEventListener('click', (event) => {
-    event.preventDefault()
-    clearBtn.parentElement.reset()
+  const clearBtn = document.getElementById(tagKey + "ClearBtn");
+  clearBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    clearBtn.parentElement.reset();
     const options = listTags.querySelectorAll("option");
-    options.forEach((option) => option.classList.remove("hidden"))
-  })
+    options.forEach((option) => option.classList.remove("hidden"));
+  });
 }
 
 export function displayTagsCard(tagsList, tagKey) {
-  const tagKeyLower = tagKey.toLowerCase()
-  const tagsId = tagKeyLower+"Tags"
+  const tagKeyLower = tagKey.toLowerCase();
+  const tagsId = tagKeyLower + "Tags";
 
   const ingredientTags = document.getElementById(tagsId);
   const templateIngredientCard = tagFilterTemplate(tagKey);
@@ -58,12 +81,12 @@ export function displayTagsCard(tagsList, tagKey) {
 }
 
 export function manageTags(tagKey) {
-  const openBtnId = "#open"+tagKey+"Btn"
-  const closeBtnId = "#close"+tagKey+"Btn"
-  const tagKeyLower = tagKey.toLowerCase()
-  const listId = "#"+tagKeyLower
-  const inputId = "#"+tagKeyLower+"Input"
-  const formId = "#"+tagKeyLower+"Form"
+  const openBtnId = "#open" + tagKey + "Btn";
+  const closeBtnId = "#close" + tagKey + "Btn";
+  const tagKeyLower = tagKey.toLowerCase();
+  const listId = "#" + tagKeyLower;
+  const inputId = "#" + tagKeyLower + "Input";
+  const formId = "#" + tagKeyLower + "Form";
 
   const openBtn = document.querySelector(openBtnId);
   const closeBtn = document.querySelector(closeBtnId);
@@ -72,22 +95,11 @@ export function manageTags(tagKey) {
   const form = document.querySelector(formId);
 
   openBtn.addEventListener("click", () => {
-    openFilterTag(
-      list,
-      form,
-      openBtn,
-      closeBtn,
-    );
+    openFilterTag(list, form, openBtn, closeBtn);
   });
   closeBtn.addEventListener("click", () => {
-    closeFilterTag(
-      list,
-      form,
-      openBtn,
-      closeBtn,
-    );
+    closeFilterTag(list, form, openBtn, closeBtn);
   });
-  updteListTags(list, input);
-  clearInputTag(tagKeyLower,list, input);
-
+  updateListTags(list, input);
+  clearInputTag(tagKeyLower, list, input);
 }
