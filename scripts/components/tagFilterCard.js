@@ -1,6 +1,6 @@
 export function tagFilterTemplate(tagTitle) {
   const lowerTitle = tagTitle.toLowerCase();
-  const ingretients = `
+  return `
         <label
             class="flex justify-between items-center pl-3 pr-3 pt-4 pb-[10px]"
             for="${lowerTitle}Input"
@@ -58,7 +58,6 @@ export function tagFilterTemplate(tagTitle) {
           </datalist>
     
     `;
-  return ingretients;
 }
 
 export function optionTagTemplate(optionText) {
