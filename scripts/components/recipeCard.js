@@ -17,7 +17,7 @@ export function recipeCardTemplate(recipe) {
     article.setAttribute("class", "w-[30%] flex flex-col rounded-xl bg-white relative");
     article.innerHTML =   `
     <div class="h-[250px]">
-        <img src="../assets/images/${recipe.image}" alt="${recipe.name}" class="object-cover w-full h-full rounded-t-xl">
+        <img src="./assets/images/${recipe.image}" alt="${recipe.name}" class="object-cover w-full h-full rounded-t-xl">
     </div>
     <div class="p-8">
         <h2 class="font-anton pb-6">${recipe.name}</h3>
