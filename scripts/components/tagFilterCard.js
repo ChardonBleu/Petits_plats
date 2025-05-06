@@ -23,7 +23,6 @@ export function tagFilterTemplate(tagTitle) {
             >
               <input
                 id="${lowerTitle}Input"
-                autocomplete="on"
                 role="combobox"
                 list=""
                 name="${lowerTitle}"

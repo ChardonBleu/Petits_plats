@@ -1,3 +1,3 @@
-export const ingredients = "Ingredients"
-export const appliances = "Appliances"
-export const ustensils = "Ustensils"
+export const ingredients = "Ingredients";
+export const appliances = "Appliances";
+export const ustensils = "Ustensils";
