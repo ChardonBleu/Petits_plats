@@ -5,7 +5,9 @@ import {
 import {
   capitalizeSentence,
   sortAndRemovesDuplicates,
+  findElementByText
 } from "../utils/functions.js";
+import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
 
 export function openFilterTag(listTags, formTag, openBtn, closeBtn) {
   listTags.classList.remove("hidden");
@@ -43,11 +45,11 @@ export function getTagsListsFromRecipes(recipes) {
 }
 
 export function updateListTags(listTags, inputTag) {
-  const options = listTags.querySelectorAll("option");
+  const options = listTags.querySelectorAll("li");
   inputTag.addEventListener("input", () => {
     var text = inputTag.value.toUpperCase();
     options.forEach((option) => {
-      if (option.value.toUpperCase().indexOf(text) === -1) {
+      if (option.innerText.toUpperCase().indexOf(text) === -1) {
         option.classList.add("hidden");
       } else {
         option.classList.remove("hidden");
@@ -61,7 +63,7 @@ export function clearInputTag(tagKey, listTags) {
   clearBtn.addEventListener("click", (event) => {
     event.preventDefault();
     clearBtn.parentElement.reset();
-    const options = listTags.querySelectorAll("option");
+    const options = listTags.querySelectorAll("li");
     options.forEach((option) => option.classList.remove("hidden"));
   });
 }
@@ -102,4 +104,75 @@ export function manageTags(tagKey) {
   });
   updateListTags(list, input);
   clearInputTag(tagKeyLower, list, input);
+}
+
+
+export function addOrRemoveTagButtons(app, tagKey) {
+  const tagKeyLower = tagKey.toLowerCase();
+  const tagsListID = "#" + tagKeyLower + " li";
+  const tagsList = document.querySelectorAll(tagsListID)
+  const tagsButtonsDiv = document.getElementById("tagsBtns")
+
+  tagsList.forEach(tag => {
+    const removeTagBtn = tag.querySelector("i").parentElement
+    const tagTextElement = tag.querySelector("p")
+    
+    tagTextElement.addEventListener("click", () => {
+      if (!app.selectedTags.includes(tag.innerText)) {
+        app.selectedTags.push(tag.innerText)
+        tag.classList.add("font-manrope-bold")
+        tag.classList.add("bg-mustard")
+        removeTagBtn.classList.remove("hidden")
+        
+        const externalTabBtn = tagButtonTemplate(tag.innerText)
+        tagsButtonsDiv.appendChild(externalTabBtn)
+
+        externalTabBtn.addEventListener('click', () => {
+          externalTabBtn.remove()
+          const linkedTag = findElementByText(tagsListID, tag.innerText)
+          const linkedremoveTagBtn = linkedTag.lastElementChild
+          linkedTag.classList.remove("font-manrope-bold")
+          linkedTag.classList.remove("bg-mustard")
+          linkedremoveTagBtn.classList.add("hidden")
+          app.selectedTags = app.selectedTags.filter(item => item != tag.innerText)
+
+          return app.selectedTags
+        })
+        return app.selectedTags
+      }
+    });
+    
+    removeTagBtn.addEventListener("click", () => {
+      tag.classList.remove("font-manrope-bold")
+      tag.classList.remove("bg-mustard")
+      removeTagBtn.classList.add("hidden")
+      const externalButton = findElementByText("#tagsBtns button", tag.innerText)
+      externalButton.remove()
+      app.selectedTags = app.selectedTags.filter(item => item != tag.innerText)
+      return app.selectedTags
+    })
+  });
+  return app.selectedTags
+
+}
+
+export function manageTagsSearch(app, tagKey) {   
+ 
+  // Récupérer les tags choisis
+  // event listener sur le click sur un tag quelqu'il soit --> on le stocke dans app.selectedTags
+  // il apparait en dessous du search principal et il reste surligné en jaune, en gras avec une croix
+  // et la recherche se déclenche --> excécution de tagSearch()
+  // Lorsque l'utilisateur clique sur la croix le tag reviens sur fond blanc 
+  // et il est retiré de la liste app.selectedTags et on relance la recherche
+  app.selectedTags = addOrRemoveTagButtons(app, tagKey)
+  
+
+
+  // faire la recherche
+
+
+  // réinitialize les tags avec la nouvelle liste de recettes et réafficher la page
+
+  return app.selectedTags
+
 }

@@ -39,7 +39,7 @@ export function tagFilterTemplate(tagTitle) {
                   height="10px"
                 />
               </button>
-              <button class="flex items-center justify-center pr-2">
+              <button id="${lowerTitle}SearchBtn" class="flex items-center justify-center pr-2">
                 <img
                   src="assets/icons/little-search.svg"
                   alt="logo search"
@@ -49,23 +49,24 @@ export function tagFilterTemplate(tagTitle) {
               </button>
             </form>
           </div>
-          <datalist
+          <ul
             id="${lowerTitle}"
             role="listbox"
             class="hidden mt-2 rounded-b-lg flex-col content-between overflow-y-scroll discret-scroll max-h-72"
           >
-          </datalist>
+          </ul>
     
     `;
 }
 
 export function optionTagTemplate(optionText) {
-  const option = document.createElement("option");
+  const option = document.createElement("li");
   option.setAttribute(
     "class",
-    "cursor-pointer hover:bg-mustard pl-3  min-h-10 pt-2",
+    "cursor-pointer hover:bg-mustard pl-3 pr-3  min-h-10 pt-2 flex justify-between items-center",
   );
-  option.setAttribute("value", optionText);
-  option.innerText = optionText;
+  option.innerHTML = `
+    <p class="w-[90%]">${optionText}</p><p class="hidden"><i class="fa-solid fa-circle-xmark"></i></p>
+  `;
   return option;
 }
