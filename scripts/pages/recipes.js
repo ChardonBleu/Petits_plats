@@ -19,42 +19,53 @@ export function displayRecipes(recipes) {
   updateRecipeCounter(recipes);
 }
 
-export function displayIndexPage(
-  recipes,
-  ingredientTags,
-  appliancesTags,
-  ustensilsTags,
-) {
-  getTagsListsFromRecipes(recipes);
-  displayTagsCard(ingredientTags, ingredients);
-  displayTagsCard(appliancesTags, appliances);
-  displayTagsCard(ustensilsTags, ustensils);
-  displayRecipes(recipes);
+export function displayIndexPage(app) {
+  getTagsListsFromRecipes(app.recipes);
+  displayTagsCard(app.ingredients, ingredients);
+  displayTagsCard(app.appliances, appliances);
+  displayTagsCard(app.ustensils, ustensils);
+  displayRecipes(app.recipes);
   manageTags(ingredients);
   manageTags(appliances);
   manageTags(ustensils);
 }
 
-export function manageRecipes(recipes, ingredients, appliances, ustensils) {
+export function eventOnPrincipalSearch(inputSearch, app) {
+  const searchError = document.getElementById("searchError");
+  if (inputSearch.checkValidity()) {
+    searchError.classList.add("hidden");
+    searchError.classList.remove("flex");
+    const searchString = sanitize(inputSearch.value);
+    [app.recipes, app.ingredients, app.appliances, app.ustensils] = searchRecipes(
+      app,
+      searchString,
+    );
+  } else {
+    searchError.classList.remove("hidden");
+    searchError.classList.add("flex");
+  }
+  // return [app.recipes, app.ingredients, app.appliances, app.ustensils];
+}
+
+export function managePrincipalSearch(app) {
   const searchBtn = document.getElementById("principalSearchBtn");
+  const inputSearch = document.getElementById("prinicpalSearchInput");
+  const clearSearchBtn = document.getElementById("clearPrincipalSearchBtn")
   searchBtn.addEventListener("click", () => {
-    const inputSearch = document.getElementById("prinicpalSearchInput");
-    const searchError = document.getElementById("searchError");
-    if (inputSearch.checkValidity()) {
-      searchError.classList.add("hidden");
-      searchError.classList.remove("flex");
-      const searchString = sanitize(inputSearch.value);
-      [recipes, ingredients, appliances, ustensils] = searchRecipes(
-        recipes,
-        ingredients,
-        appliances,
-        ustensils,
-        searchString,
-      );
-    } else {
-      searchError.classList.remove("hidden");
-      searchError.classList.add("flex");
+    eventOnPrincipalSearch(inputSearch, app)
+
+  });
+  inputSearch.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      eventOnPrincipalSearch(inputSearch, app)
     }
   });
-  return [recipes, ingredients, appliances, ustensils];
+  clearSearchBtn.addEventListener("click", (event) => {
+    event.preventDefault()
+    inputSearch.value = ""
+    app.fetchDatas()
+  });
+  return [app.recipes, app.ingredients, app.appliances, app.ustensils];
+
 }
