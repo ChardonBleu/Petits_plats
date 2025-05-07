@@ -1,7 +1,7 @@
 import { getTagsListsFromRecipes } from "./search/tags.js";
 import { recipes } from "./data/recipes.js";
 import { Recipe } from "./models/Recipe.js";
-import { displayIndexPage, manageRecipes } from "./pages/recipes.js";
+import { displayIndexPage, managePrincipalSearch } from "./pages/recipes.js";
 
 class App {
   constructor() {
@@ -15,24 +15,14 @@ class App {
     this.recipes = recipes.map((recipe) => new Recipe(recipe));
     [this.ingredients, this.appliances, this.ustensils] =
       getTagsListsFromRecipes(this.recipes);
-    displayIndexPage(
-      this.recipes,
-      this.ingredients,
-      this.appliances,
-      this.ustensils,
-    );
+    displayIndexPage(this);
   }
 
   async main() {
     this.fetchDatas();
 
     [this.recipes, this.ingredients, this.appliances, this.ustensils] =
-      manageRecipes(
-        this.recipes,
-        this.ingredients,
-        this.appliances,
-        this.ustensils,
-      );
+      managePrincipalSearch(this);
   }
 }
 
