@@ -6,17 +6,18 @@ export function searchRecipes(
   ingredientTags,
   appliancesTags,
   ustensilsTags,
-  searchString
+  searchString,
 ) {
-    // faire la recherche principale avec l'algo optimisé ou pas
-    console.log(searchString)
-    recipes = recipes.filter((recipe) => recipe.name.toLowerCase().includes("coco"));
-    console.log(recipes);
+  // faire la recherche principale avec l'algo optimisé ou pas
+  recipes = recipes.filter((recipe) =>
+    recipe.name.toLowerCase().includes(searchString),
+  );
 
-    // réinitialize les tags avec la nouvelle liste de recettes
-    [ingredientTags, appliancesTags, ustensilsTags] = getTagsListsFromRecipes(recipes);
-    displayIndexPage(recipes, ingredientTags, appliancesTags, ustensilsTags);
+  // réinitialize les tags avec la nouvelle liste de recettes
+  [ingredientTags, appliancesTags, ustensilsTags] =
+    getTagsListsFromRecipes(recipes);
+  displayIndexPage(recipes, ingredientTags, appliancesTags, ustensilsTags);
 
-    //Retourner toutes les nouvealles valeurs
-    return [recipes, ingredientTags, appliancesTags, ustensilsTags];
+  //Retourner toutes les nouvealles valeurs
+  return [recipes, ingredientTags, appliancesTags, ustensilsTags];
 }

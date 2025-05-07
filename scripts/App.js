@@ -26,7 +26,13 @@ class App {
   async main() {
     this.fetchDatas();
 
-    [this.recipes, this.ingredients, this.appliances, this.ustensils] = manageRecipes(this.recipes, this.ingredients, this.appliances, this.ustensils)
+    [this.recipes, this.ingredients, this.appliances, this.ustensils] =
+      manageRecipes(
+        this.recipes,
+        this.ingredients,
+        this.appliances,
+        this.ustensils,
+      );
   }
 }
 

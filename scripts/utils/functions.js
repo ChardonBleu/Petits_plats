@@ -11,13 +11,13 @@ export function sortAndRemovesDuplicates(myList) {
 
 export function sanitize(string) {
   const map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;',
-      "/": '&#x2F;',
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#x27;",
+    "/": "&#x2F;",
   };
-  const reg = /[&<>"'/]/ig;
-  return string.replace(reg, (match)=>(map[match]));
+  const reg = /[&<>"'/]/gi;
+  return string.replace(reg, (match) => map[match]);
 }

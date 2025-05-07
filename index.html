@@ -30,7 +30,6 @@
         id="search"
         class="mb-1 bg-white w-[60%] h-[72px] p-[10px] flex justify-between items-center rounded-lg"
       >
-        
         <input
           type="text"
           id="prinicpalSearchInput"
@@ -66,46 +65,42 @@
         </button>
       </form>
       <div
-      id="searchError"
-      class="pl-2 justify-between items-center text-mustard text-sm w-[60%] hidden">
-      Veuillez entrer au moins 3 caractères dans le champ de recherche.
-    </div>
+        id="searchError"
+        class="pl-2 justify-between items-center text-mustard text-sm w-[60%] hidden"
+      >
+        Veuillez entrer au moins 3 caractères dans le champ de recherche.
+      </div>
     </header>
 
     <main class="bg-light-grey flex flex-col justify-center items-center pb-10">
       <section
-        aria-label="tags filtering and recipes counter"
         class="w-[90%] mt-[21px] items-center font-[manrope-regular] text-regular relative"
       >
         <div
           id="ingredientsTags"
-          aria-label="ingredients tags"
           class="bg-white rounded-lg w-[200px] absolute top-4 left-0 z-10"
         ></div>
 
         <div
           id="appliancesTags"
-          aria-label="appliances tags"
           class="bg-white rounded-lg w-[200px] absolute top-4 left-[250px] z-10"
         ></div>
 
         <div
           id="ustensilsTags"
-          aria-label="ustensils tags"
           class="bg-white rounded-lg w-[200px] absolute top-4 left-[500px] z-10"
         ></div>
 
         <h2
           id="counter"
-          aria-label="active recipes counter"
           class="font-anton text-title2 absolute right-0 top-6"
         ></h2>
       </section>
 
-      <section
+      <div
         id="recipes"
         class="w-[90%] pt-5 flex flex-wrap gap-x-[5%] gap-y-10 mt-26"
-      ></section>
+      ></div>
     </main>
 
     <script type="module" src="scripts/App.js"></script>

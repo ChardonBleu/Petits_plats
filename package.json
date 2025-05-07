@@ -15,7 +15,7 @@
     "tailwindcss": "^4.1.4"
   },
   "scripts": {
-    "build": "tailwindcss -i ./assets/css/style.css -o ./assets/css/output.css --watch",
+    "dev": "tailwindcss -i ./assets/css/style.css -o ./assets/css/output.css --watch",
     "lint": "npx eslint .",
     "fmt": "npx prettier . --check",
     "fmt:fix": "npx prettier . --write"
