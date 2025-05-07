@@ -39,7 +39,7 @@ export function getTagsListsFromRecipes(recipes) {
   ingredients = sortAndRemovesDuplicates(ingredients);
   appliances = sortAndRemovesDuplicates(appliances);
   ustensils = sortAndRemovesDuplicates(ustensils);
-  return [ingredients, appliances, ustensils]
+  return [ingredients, appliances, ustensils];
 }
 
 export function updateListTags(listTags, inputTag) {
