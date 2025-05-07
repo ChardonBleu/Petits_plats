@@ -10,12 +10,12 @@ export function searchRecipes(
     recipe.name.toLowerCase().includes(searchString),
   );
 
-  // réinitialize les tags avec la nouvelle liste de recettes
+  // réinitialize les tags avec la nouvelle liste de recettes et réafficher la page
   [app.ingredients,app.appliances, app.ustensils] =
     getTagsListsFromRecipes(app.recipes);
   displayIndexPage(app);
 
   //Retourner toutes les nouvealles valeurs
-  return [app.recipes, app.ingredients, app.appliances, app.ustensils]
+  // return [app.recipes, app.ingredients, app.appliances, app.ustensils]
 
 }

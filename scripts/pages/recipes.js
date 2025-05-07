@@ -2,9 +2,9 @@ import { recipeCardTemplate } from "../components/recipeCard.js";
 import { updateRecipeCounter } from "./counter.js";
 import { ingredients, appliances, ustensils } from "../utils/constants.js";
 import {
-  getTagsListsFromRecipes,
   displayTagsCard,
   manageTags,
+  manageTagsSearch
 } from "../search/tags.js";
 import { searchRecipes } from "../search/recipeSearch.js";
 import { sanitize } from "../utils/functions.js";
@@ -20,7 +20,6 @@ export function displayRecipes(recipes) {
 }
 
 export function displayIndexPage(app) {
-  getTagsListsFromRecipes(app.recipes);
   displayTagsCard(app.ingredients, ingredients);
   displayTagsCard(app.appliances, appliances);
   displayTagsCard(app.ustensils, ustensils);
@@ -28,6 +27,10 @@ export function displayIndexPage(app) {
   manageTags(ingredients);
   manageTags(appliances);
   manageTags(ustensils);
+  manageTagsSearch(app, ingredients);
+  manageTagsSearch(app, appliances);
+  manageTagsSearch(app, ustensils);
+
 }
 
 export function eventOnPrincipalSearch(inputSearch, app) {
@@ -44,7 +47,6 @@ export function eventOnPrincipalSearch(inputSearch, app) {
     searchError.classList.remove("hidden");
     searchError.classList.add("flex");
   }
-  // return [app.recipes, app.ingredients, app.appliances, app.ustensils];
 }
 
 export function managePrincipalSearch(app) {
@@ -66,6 +68,6 @@ export function managePrincipalSearch(app) {
     inputSearch.value = ""
     app.fetchDatas()
   });
-  return [app.recipes, app.ingredients, app.appliances, app.ustensils];
+  return [app.recipes, app.ingredients,app.appliances, app.ustensils]
 
 }

@@ -21,3 +21,15 @@ export function sanitize(string) {
   const reg = /[&<>"'/]/gi;
   return string.replace(reg, (match) => map[match]);
 }
+
+
+export function findElementByText(selector, text) {
+  const elements = document.querySelectorAll(selector);
+
+  for (let element of elements) {
+    if (element.textContent.trim() === text) {
+      return element;
+    }
+  }
+  return null;
+}
