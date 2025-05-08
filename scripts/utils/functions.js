@@ -22,7 +22,6 @@ export function sanitize(string) {
   return string.replace(reg, (match) => map[match]);
 }
 
-
 export function findElementByText(selector, text) {
   const elements = document.querySelectorAll(selector);
 
