@@ -209,12 +209,6 @@
   .left-\[500px\] {
     left: 500px;
   }
-  .-z-10 {
-    z-index: calc(10 * -1);
-  }
-  .-z-100 {
-    z-index: calc(100 * -1);
-  }
   .z-10 {
     z-index: 10;
   }
@@ -385,10 +379,6 @@
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
-  }
-  .border-0 {
-    border-style: var(--tw-border-style);
-    border-width: 0px;
   }
   .border-1 {
     border-style: var(--tw-border-style);
