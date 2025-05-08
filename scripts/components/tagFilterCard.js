@@ -19,7 +19,7 @@ export function tagFilterTemplate(tagTitle) {
           <div class="">
             <form
               id="${lowerTitle}Form"
-              class="hidden justify-between items-center border-1 border-light-grey ml-3 mr-3"
+              class="h-0 w-0 flex justify-between items-center border-light-grey ml-3 mr-3"
             >
               <input
                 id="${lowerTitle}Input"
@@ -52,7 +52,7 @@ export function tagFilterTemplate(tagTitle) {
           <ul
             id="${lowerTitle}"
             role="listbox"
-            class="hidden mt-2 rounded-b-lg flex-col content-between overflow-y-scroll discret-scroll max-h-72"
+            class="h-0 flex mt-2 rounded-b-lg flex-col content-between overflow-y-scroll discret-scroll max-h-72"
           >
           </ul>
     
