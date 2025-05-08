@@ -1,8 +1,6 @@
 import { recipes } from "./data/recipes.js";
 import { Recipe } from "./models/Recipe.js";
-import { displayIndexPage, managePrincipalSearch } from "./pages/recipes.js";
-import {manageTagsSearch} from "./search/tags.js"
-import { ingredients, appliances, ustensils } from "./utils/constants.js";
+import { displayAndManageIndexPage, managePrincipalSearch } from "./pages/recipes.js";
 
 class App {
   constructor() {
@@ -10,19 +8,18 @@ class App {
     this.ingredients = []; // Array or strings
     this.appliances = []; // Array or strings
     this.ustensils = []; // Array or strings
-    this.selectedTags = []; // Array or strings
+    this.ingredientsSelectedTags = []; // Array or strings
+    this.appliancesSelectedTags = []; // Array or strings
+    this.ustensilsSelectedTags = []; // Array or strings
   }
 
   fetchDatas() {
     this.recipes = recipes.map((recipe) => new Recipe(recipe));
   }
-  
+
   async main() {
     this.fetchDatas();
-    displayIndexPage(this)
-    manageTagsSearch(this, ingredients);
-    manageTagsSearch(this, appliances);
-    manageTagsSearch(this, ustensils);
+    displayAndManageIndexPage(this);
     managePrincipalSearch(this);
   }
 }

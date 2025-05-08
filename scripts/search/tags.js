@@ -8,8 +8,10 @@ import {
   findElementByText,
 } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
+import { displayAndManageIndexPage } from "../pages/recipes.js";
+import { ingredients, appliances, ustensils } from "../utils/constants.js";
 
-export function openFilterTag(listTags, formTag, openBtn, closeBtn) {
+function openFilterTag(listTags, formTag, openBtn, closeBtn) {
   openBtn.classList.add("hidden");
   closeBtn.classList.remove("hidden");
   formTag.classList.remove("h-0");
@@ -18,7 +20,7 @@ export function openFilterTag(listTags, formTag, openBtn, closeBtn) {
   listTags.classList.remove("h-0");
 }
 
-export function closeFilterTag(listTags, formTag, openBtn, closeBtn) {
+function closeFilterTag(listTags, formTag, openBtn, closeBtn) {
   openBtn.classList.remove("hidden");
   closeBtn.classList.add("hidden");
   formTag.classList.add("h-0");
@@ -59,7 +61,7 @@ export function updateListTags(listTags, inputTag) {
   });
 }
 
-export function clearInputTag(tagKey, listTags) {
+function clearInputTag(tagKey, listTags) {
   const clearBtn = document.getElementById(tagKey + "ClearBtn");
   clearBtn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -70,9 +72,11 @@ export function clearInputTag(tagKey, listTags) {
 }
 
 export function displayTagsCard(tagsList, tagKey) {
-  const tagKeyLower = tagKey.toLowerCase();
+  const tagKeyLower = tagKey.en.toLowerCase();
   const tagsId = tagKeyLower + "Tags";
-
+  console.log(tagKey)
+  console.log(tagKey.en)
+  console.log(tagKey.fr)
   const ingredientTags = document.getElementById(tagsId);
   const templateIngredientCard = tagFilterTemplate(tagKey);
   ingredientTags.innerHTML = templateIngredientCard;
@@ -107,7 +111,63 @@ export function manageTags(tagKey) {
   clearInputTag(tagKeyLower, list, input);
 }
 
-export function addOrRemoveTagButtons(app, tagKey) {
+function memorizeTagsInApp(app, tagKey, tagText) {
+  switch (tagKey) {
+    case ingredients.en:
+      app.ingredientsSelectedTags.push(tagText);
+      break;
+    case appliances.en:
+      app.appliancesSelectedTags.push(tagText);
+      break;
+    case ustensils.en:
+      app.ustensilsSelectedTags.push(tagText);
+      break;
+    default:
+      throw new Error("catégorie de tag non connue");
+  }
+}
+
+function removeTagsFromApp(app, tagKey, tagText) {
+  switch (tagKey) {
+    case ingredients.en:
+      app.ingredientsSelectedTags = app.ingredientsSelectedTags.filter(
+        (item) => item != tagText,
+      );
+      break;
+    case appliances.en:
+      app.appliancesSelectedTags = app.appliancesSelectedTags.filter(
+        (item) => item != tagText,
+      );
+      break;
+    case ustensils.en:
+      app.ustensilsSelectedTags = app.ustensilsSelectedTags.filter(
+        (item) => item != tagText,
+      );
+      break;
+    default:
+      throw new Error("catégorie de tag non connue");
+  }
+}
+
+function filterRecipesWithTags(app) {
+  app.recipes = app.recipes.filter(function (recipe) {
+    const ingredientsList = recipe.ingredients.map((ingredient) =>
+      ingredient.ingredient.toLowerCase(),
+    );
+    const recipeIsOK =
+      app.ustensilsSelectedTags.every((item) =>
+        recipe.ustensils.includes(item.toLowerCase()),
+      ) &&
+      app.ingredientsSelectedTags.every((item) =>
+        ingredientsList.includes(item.toLowerCase()),
+      ) &&
+      recipe.appliance.includes(app.appliancesSelectedTags);
+    return recipeIsOK ? recipe : undefined;
+  });
+  console.log(app.recipes.length);
+}
+
+export function manageTagsSearch(app, tagKey) {
   const tagKeyLower = tagKey.toLowerCase();
   const tagsListID = "#" + tagKeyLower + " li";
   const tagsList = document.querySelectorAll(tagsListID);
@@ -116,32 +176,40 @@ export function addOrRemoveTagButtons(app, tagKey) {
   tagsList.forEach((tag) => {
     const removeTagBtn = tag.querySelector("i").parentElement;
     const tagTextElement = tag.querySelector("p");
+    const tagText = tagTextElement.innerText;
 
     tagTextElement.addEventListener("click", () => {
-      if (!app.selectedTags.includes(tag.innerText)) {
-        app.selectedTags.push(tag.innerText);
+      // Ajout de tags
+      if (
+        !app.ingredientsSelectedTags.includes(tagText) ||
+        !app.appliancesSelectedTags.includes(tagText) ||
+        !app.ustensilsSelectedTags.includes(tagText)
+      ) {
         tag.classList.add("font-manrope-bold");
         tag.classList.add("bg-mustard");
         removeTagBtn.classList.remove("hidden");
-
-        const externalTabBtn = tagButtonTemplate(tag.innerText);
+        const externalTabBtn = tagButtonTemplate(tagText);
         tagsButtonsDiv.appendChild(externalTabBtn);
+        memorizeTagsInApp(app, tagKey, tagText);
+        filterRecipesWithTags(app);
+        displayAndManageIndexPage(app)
 
         externalTabBtn.addEventListener("click", () => {
           externalTabBtn.remove();
-          const linkedTag = findElementByText(tagsListID, tag.innerText);
+          const linkedTag = findElementByText(tagsListID, tagText);
           const linkedremoveTagBtn = linkedTag.lastElementChild;
           linkedTag.classList.remove("font-manrope-bold");
           linkedTag.classList.remove("bg-mustard");
           linkedremoveTagBtn.classList.add("hidden");
-          app.selectedTags = app.selectedTags.filter(
-            (item) => item != tag.innerText,
-          );
+          removeTagsFromApp(app, tagKey, tagText);
+          app.fetchDatas();
+          filterRecipesWithTags(app);
+          displayAndManageIndexPage(app)
         });
       }
     });
-
     removeTagBtn.addEventListener("click", () => {
+      // Retrait de tags
       tag.classList.remove("font-manrope-bold");
       tag.classList.remove("bg-mustard");
       removeTagBtn.classList.add("hidden");
@@ -150,24 +218,10 @@ export function addOrRemoveTagButtons(app, tagKey) {
         tag.innerText,
       );
       externalButton.remove();
-      app.selectedTags = app.selectedTags.filter(
-        (item) => item != tag.innerText,
-      );
+      removeTagsFromApp(app, tagKey, tagText);
+      app.fetchDatas();
+      filterRecipesWithTags(app);
+      displayAndManageIndexPage(app)
     });
   });
-}
-
-export function manageTagsSearch(app, tagKey) {
-  // Récupérer les tags choisis
-  // event listener sur le click sur un tag quelqu'il soit --> on le stocke dans app.selectedTags
-  // il apparait en dessous du search principal et il reste surligné en jaune, en gras avec une croix
-  // et la recherche se déclenche --> excécution de tagSearch()
-  // Lorsque l'utilisateur clique sur la croix le tag reviens sur fond blanc
-  // et il est retiré de la liste app.selectedTags et on relance la recherche
-  addOrRemoveTagButtons(app, tagKey);
-
-  // faire la recherche
-
-  // réinitialize les tags avec la nouvelle liste de recettes et réafficher la page
-
 }

@@ -5,6 +5,7 @@ import {
   displayTagsCard,
   manageTags,
   getTagsListsFromRecipes,
+  manageTagsSearch
 } from "../search/tags.js";
 import { searchRecipes } from "../search/recipeSearch.js";
 import { sanitize } from "../utils/functions.js";
@@ -19,15 +20,18 @@ export function displayRecipes(recipes) {
   updateRecipeCounter(recipes);
 }
 
-export function displayIndexPage(app) {
+export function displayAndManageIndexPage(app) {
   getTagsListsFromRecipes(app);
   displayTagsCard(app.ingredients, ingredients);
   displayTagsCard(app.appliances, appliances);
   displayTagsCard(app.ustensils, ustensils);
   displayRecipes(app.recipes);
-  manageTags(ingredients);
-  manageTags(appliances);
-  manageTags(ustensils);
+  manageTags(ingredients.en);
+  manageTags(appliances.en);
+  manageTags(ustensils.en);
+  manageTagsSearch(app, ingredients.en);
+  manageTagsSearch(app, appliances.en);
+  manageTagsSearch(app, ustensils.en);
 }
 
 export function eventOnPrincipalSearch(inputSearch, app) {

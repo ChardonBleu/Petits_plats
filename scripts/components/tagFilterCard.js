@@ -1,18 +1,18 @@
 export function tagFilterTemplate(tagTitle) {
-  const lowerTitle = tagTitle.toLowerCase();
+  const lowerTitle = tagTitle.en.toLowerCase();
   return `
         <label
             class="flex justify-between items-center pl-3 pr-3 pt-4 pb-[10px]"
             for="${lowerTitle}Input"
           >
-            <div class="font-[manrope-medium] text-form">${tagTitle}</div>
-            <div id="open${tagTitle}Btn" class="cursor-pointer">
+            <div class="font-[manrope-medium] text-form">${tagTitle.fr}</div>
+            <div id="open${tagTitle.en}Btn" class="cursor-pointer">
               <img
                 src="assets/icons/chevron-down.png"
                 alt="chevron down icon"
               />
             </div>
-            <div id="close${tagTitle}Btn" class="hidden cursor-pointer">
+            <div id="close${tagTitle.en}Btn" class="hidden cursor-pointer">
               <img src="assets/icons/chevron-up.png" alt="chevron down icon" />
             </div>
           </label>

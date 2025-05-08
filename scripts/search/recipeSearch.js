@@ -1,4 +1,4 @@
-import { displayIndexPage } from "../pages/recipes.js";
+import { displayAndManageIndexPage } from "../pages/recipes.js";
 
 export function searchRecipes(app, searchString) {
   // faire la recherche principale avec l'algo optimisé ou pas
@@ -6,5 +6,5 @@ export function searchRecipes(app, searchString) {
     recipe.name.toLowerCase().includes(searchString),
   );
 
-  displayIndexPage(app);
+  displayAndManageIndexPage(app);
 }
