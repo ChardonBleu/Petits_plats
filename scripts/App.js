@@ -1,7 +1,14 @@
 import { recipes } from "./data/recipes.js";
 import { Recipe } from "./models/Recipe.js";
-import { displayAndManageIndexPage, managePrincipalSearch } from "./pages/recipes.js";
-import { displayTagsCard, manageTags, manageTagsSearch } from "./search/tags.js"
+import {
+  displayAndManageIndexPage,
+  managePrincipalSearch,
+} from "./pages/recipes.js";
+import {
+  displayTagsCard,
+  manageTags,
+  manageTagsSearch,
+} from "./search/tags.js";
 import { ingredients, appliances, ustensils } from "./utils/constants.js";
 class App {
   constructor() {
