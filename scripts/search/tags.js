@@ -8,7 +8,7 @@ import {
   findElementByText,
 } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
-import { displayAndManageIndexPage } from "../pages/recipes.js";
+import { displayAndManageIndexPage,controlForActivePrincipalSearch } from "../pages/recipes.js";
 import { ingredients, appliances, ustensils } from "../utils/constants.js";
 
 function openFilterTag(listTags, formTag, openBtn, closeBtn) {
@@ -112,24 +112,11 @@ export function manageTags(tagKey) {
 function getAppSelectedTagsFromKeyTag(app, tagKey) {
   switch (tagKey) {
     case ingredients.en:
-      return app.ingredientsSelectedTags
+      return app.ingredientsSelectedTags;
     case appliances.en:
-      return app.appliancesSelectedTags
+      return app.appliancesSelectedTags;
     case ustensils.en:
-      return app.ustensilsSelectedTags
-    default:
-      throw new Error("catégorie de tag non connue");
-  }
-}
-
-function getAppTagsFromKeyTag(app, tagKey) {
-  switch (tagKey) {
-    case ingredients.en:
-      return app.ingredients
-    case appliances.en:
-      return app.appliances
-    case ustensils.en:
-      return app.ustensils
+      return app.ustensilsSelectedTags;
     default:
       throw new Error("catégorie de tag non connue");
   }
@@ -173,7 +160,7 @@ function removeTagsFromApp(app, tagKey, tagText) {
   }
 }
 
-function filterRecipesWithTags(app) {
+export function filterRecipesWithTags(app) {
   app.recipes = app.recipes.filter(function (recipe) {
     const ingredientsList = recipe.ingredients.map((ingredient) =>
       ingredient.ingredient.toLowerCase(),
@@ -190,22 +177,21 @@ function filterRecipesWithTags(app) {
   });
 }
 
-function updateListTagsFromRecipes(app) {
-  // il faut mettre à jour les trois listes de tags en fonction des recettes visibles !!!!
-  const allTagsList = document.querySelectorAll("li")
-  console.log(allTagsList)
-  
-  allTagsList.forEach(function(tag) {
+export function updateListTagsFromRecipes(app) {
+  const allTagsList = document.querySelectorAll("li");
+  allTagsList.forEach(function (tag) {
     const tagTextElement = tag.querySelector("p");
     const tagText = tagTextElement.innerText;
     if (
-      app.ingredients.includes(tagText) || app.appliances.includes(tagText) || app.ustensils.includes(tagText)
-    ) { 
-      tag.classList.remove("hidden")
+      app.ingredients.includes(tagText) ||
+      app.appliances.includes(tagText) ||
+      app.ustensils.includes(tagText)
+    ) {
+      tag.classList.remove("hidden");
     } else {
-      tag.classList.add("hidden")
+      tag.classList.add("hidden");
     }
-  })
+  });
 }
 
 export function manageTagsSearch(app, tagKey) {
@@ -221,19 +207,16 @@ export function manageTagsSearch(app, tagKey) {
 
     tagTextElement.addEventListener("click", () => {
       // Ajout de tags
-     let selectedTagsAttribute = getAppSelectedTagsFromKeyTag(app, tagKey)
-      if (
-        !selectedTagsAttribute.includes(tagText)
-      ) {
+      let selectedTagsAttribute = getAppSelectedTagsFromKeyTag(app, tagKey);
+      if (!selectedTagsAttribute.includes(tagText)) {
         tag.classList.add("font-manrope-bold");
         tag.classList.add("bg-mustard");
         removeTagBtn.classList.remove("hidden");
         const externalTabBtn = tagButtonTemplate(tagText);
         tagsButtonsDiv.appendChild(externalTabBtn);
-        memorizeTagsInApp(app, tagKey, tagText)
+        memorizeTagsInApp(app, tagKey, tagText);
         filterRecipesWithTags(app);
         displayAndManageIndexPage(app);
-        updateListTagsFromRecipes(app, tagsList, tagKey) 
 
         externalTabBtn.addEventListener("click", () => {
           externalTabBtn.remove();
@@ -244,9 +227,9 @@ export function manageTagsSearch(app, tagKey) {
           linkedremoveTagBtn.classList.add("hidden");
           removeTagsFromApp(app, tagKey, tagText);
           app.fetchDatas();
+          controlForActivePrincipalSearch(app)
           filterRecipesWithTags(app);
           displayAndManageIndexPage(app);
-          updateListTagsFromRecipes(app, tagsList, tagKey) 
         });
       }
     });
@@ -262,9 +245,9 @@ export function manageTagsSearch(app, tagKey) {
       externalButton.remove();
       removeTagsFromApp(app, tagKey, tagText);
       app.fetchDatas();
+      controlForActivePrincipalSearch(app)
       filterRecipesWithTags(app);
       displayAndManageIndexPage(app);
-      updateListTagsFromRecipes(app, tagsList, tagKey) 
     });
   });
 }

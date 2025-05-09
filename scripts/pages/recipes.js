@@ -1,6 +1,10 @@
 import { recipeCardTemplate } from "../components/recipeCard.js";
 import { updateRecipeCounter } from "./counter.js";
-import { getTagsListsFromRecipes } from "../search/tags.js";
+import {
+  getTagsListsFromRecipes,
+  updateListTagsFromRecipes,
+  filterRecipesWithTags
+} from "../search/tags.js";
 import { searchRecipes } from "../search/recipeSearch.js";
 import { sanitize } from "../utils/functions.js";
 
@@ -16,6 +20,7 @@ export function displayRecipes(recipes) {
 
 export function displayAndManageIndexPage(app) {
   getTagsListsFromRecipes(app);
+  updateListTagsFromRecipes(app);
   displayRecipes(app.recipes);
 }
 
@@ -26,7 +31,6 @@ export function eventOnPrincipalSearch(inputSearch, app) {
     searchError.classList.remove("flex");
     const searchString = sanitize(inputSearch.value);
     searchRecipes(app, searchString);
-    inputSearch.value = ""
   } else {
     searchError.classList.remove("hidden");
     searchError.classList.add("flex");
@@ -46,9 +50,17 @@ export function managePrincipalSearch(app) {
       eventOnPrincipalSearch(inputSearch, app);
     }
   });
-  clearSearchBtn.addEventListener("click", (event) => {
-    event.preventDefault();
+  clearSearchBtn.addEventListener("click", () => {
     inputSearch.value = "";
     app.fetchDatas();
+    filterRecipesWithTags(app);
+    displayAndManageIndexPage(app);
   });
+}
+
+export function controlForActivePrincipalSearch(app) {
+  const inputSearch = document.getElementById("prinicpalSearchInput");
+  if (inputSearch.value) {
+    eventOnPrincipalSearch(inputSearch, app);
+  }
 }
