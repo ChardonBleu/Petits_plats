@@ -1,3 +1,5 @@
+import { capitalizeSentence } from "../utils/functions.js";
+
 export function tagFilterTemplate(tagTitle) {
   const lowerTitle = tagTitle.en.toLowerCase();
   return `
@@ -66,7 +68,7 @@ export function optionTagTemplate(optionText) {
     "cursor-pointer hover:bg-mustard pl-3 pr-3  min-h-10 pt-2 flex justify-between items-center",
   );
   option.innerHTML = `
-    <p class="w-[90%]">${optionText}</p><p class="hidden"><i class="fa-solid fa-circle-xmark"></i></p>
+    <p class="w-[90%]">${capitalizeSentence(optionText)}</p><p class="hidden"><i class="fa-solid fa-circle-xmark"></i></p>
   `;
   return option;
 }
