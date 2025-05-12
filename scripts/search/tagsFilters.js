@@ -140,7 +140,7 @@ function colorizeSelectedTags(app, tagKey) {
       tag.classList.add("font-manrope-bold");
       tag.classList.add("bg-mustard");
     }
-  })
+  });
 }
 
 /** Manage tag search with Event Listeners on each tag and tags buttons
@@ -154,7 +154,7 @@ export function manageTagsSearch(app, tagKey) {
   const tagsList = document.querySelectorAll(tagsListID);
   const tagsButtonsDiv = document.getElementById("tagsBtns");
 
-  colorizeSelectedTags(app, tagKey)
+  colorizeSelectedTags(app, tagKey);
 
   tagsList.forEach((tag) => {
     const removeTagBtn = tag.querySelector("i").parentElement;

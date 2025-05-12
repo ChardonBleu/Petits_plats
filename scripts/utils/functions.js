@@ -34,7 +34,7 @@ export function sanitize(string) {
   return string.replace(reg, (match) => map[match]);
 }
 
-/** personalized DOM selector 
+/** personalized DOM selector
  * @param selector {string} - DOM Node identificator
  * @param text {string} - string we want to find in DOM
  * @return Node - DOM element with text in content

@@ -13,18 +13,17 @@ class App {
     this.ustensilsSelectedTags = []; // Array or strings
   }
 
-
   /** Fetch json datas.
-  * dataUrl is in utils/constants
-  * dataUrl just has to be updated for API
-  */
+   * dataUrl is in utils/constants
+   * dataUrl just has to be updated for API
+   */
   async fetchDatas() {
-    const response = await fetch(dataUrl)
+    const response = await fetch(dataUrl);
     if (response.ok) {
       const recipes = await response.json();
       return recipes.map((recipe) => new Recipe(recipe));
     } else {
-      throw new Error("Erreur de chargement des données")
+      throw new Error("Erreur de chargement des données");
     }
   }
 
