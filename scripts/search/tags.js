@@ -194,7 +194,6 @@ function getAppSelectedTagsFromKeyTag(app, tagKey) {
  * @return recipe | undefined {object} - recipe instance from Recipe class
  */
 export function filterRecipesWithTags(app) {
-  console.log(app.recipes)
   app.recipes = app.recipes.filter(function (recipe) {
     const recipeIsOK =
       app.ustensilsSelectedTags.every((item) =>

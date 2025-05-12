@@ -37,12 +37,14 @@ export function displayAndManageIndexPage(app) {
  * @return Array(boolean, string)  boolean for validation and string for sanitized input
  *  */
 export function validateSearchInput(inputSearch) {
-  const searchError = document.getElementById("searchError");
+  const searchError = document.getElementById("searchAlert");
   if (inputSearch.checkValidity()) {
+    searchError.innerHTML = ``
     searchError.classList.add("hidden");
     searchError.classList.remove("flex");
     return [true, sanitize(inputSearch.value)];
   } else {
+    searchError.innerHTML = `Veuillez entrer au moins 3 caractères dans le champ de recherche.`
     searchError.classList.remove("hidden");
     searchError.classList.add("flex");
     return [true, ""];
@@ -74,6 +76,7 @@ export function managePrincipalSearch(app) {
   });
   clearSearchBtn.addEventListener("click", async () => {
     inputSearch.value = "";
+    maskInfoSearch()
     app.recipes = await app.fetchDatas();
     filterRecipesWithTags(app);
     displayAndManageIndexPage(app);
@@ -92,4 +95,18 @@ export function controlForActivePrincipalSearch(app) {
       searchRecipes(app, searchString);
     }
   }
+}
+
+export function displayInfoSearch(searchString) {
+  const searchAlert = document.getElementById("searchAlert")
+  searchAlert.classList.remove("hidden")
+  searchAlert.innerHTML = `
+    Auncune recette ne contient ${searchString}. Vous pouvez chercher «Tarte aux pommes», «poisson», etc
+  `
+}
+
+export function maskInfoSearch() {
+  const searchAlert = document.getElementById("searchAlert")
+  searchAlert.classList.add("hidden")
+  searchAlert.innerHTML = ""
 }
