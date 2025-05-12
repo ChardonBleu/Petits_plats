@@ -13,10 +13,10 @@ export class Recipe {
 
   get ingredientsList() {
     // Array if strings
-    const ingredientsList = []
+    const ingredientsList = [];
     for (const ingredient of this.ingredients) {
-      ingredientsList.push(ingredient.ingredient.toLowerCase())
+      ingredientsList.push(ingredient.ingredient.toLowerCase());
     }
-    return ingredientsList
+    return ingredientsList;
   }
 }

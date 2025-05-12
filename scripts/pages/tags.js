@@ -2,9 +2,7 @@ import {
   tagFilterTemplate,
   optionTagTemplate,
 } from "../components/tagFilterCard.js";
-import {
-  sortAndRemovesDuplicates,
-} from "../utils/functions.js";
+import { sortAndRemovesDuplicates } from "../utils/functions.js";
 
 /** For openning list tags
  * @param listTags {DOM node} - ul element with all active tags
@@ -142,5 +140,3 @@ export function manageTags(tagKey) {
     updateListTagsFromInput(list, input);
   });
 }
-
-

@@ -4,11 +4,11 @@
 
 Ce dépôt correspond au Projet 7 de la formation Javascript React d'Openclassrooms.
 
-Il s'agit d'un site de recueil de recettes avec fonctionalité de recherche.    
-- La branche PP_search1 contient l'algorithme de recherche avec les boucles natives (while, for, ...).  
-- La branche PP_search2 contient l'algorithme de recherche utilisant la programmation fonctionnelle avec les méthodes de l'objet array (foreach, filter, map, reduce, ...).  
-- La brance principale main contient la méthode de recherche la plus performante parmis ces deux branches, en utilisant [JSBench](https://jsben.ch/) pour les comparer.  
+Il s'agit d'un site de recueil de recettes avec fonctionalité de recherche.
 
+- La branche PP_search1 contient l'algorithme de recherche avec les boucles natives (while, for, ...).
+- La branche PP_search2 contient l'algorithme de recherche utilisant la programmation fonctionnelle avec les méthodes de l'objet array (foreach, filter, map, reduce, ...).
+- La brance principale main contient la méthode de recherche la plus performante parmis ces deux branches, en utilisant [JSBench](https://jsben.ch/) pour les comparer.
 
 ## Exécution en local
 
