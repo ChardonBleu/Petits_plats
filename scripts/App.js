@@ -1,5 +1,6 @@
 import { Recipe } from "./models/Recipe.js";
-import { displayAndManageIndexPage, managePrincipalSearch } from "./pages/recipes.js";
+import { displayAndManageIndexPage } from "./pages/recipes.js";
+import { managePrincipalSearch } from "./pages/principalSearch.js";
 import { dataUrl } from "./utils/constants.js";
 class App {
   constructor() {
@@ -12,6 +13,11 @@ class App {
     this.ustensilsSelectedTags = []; // Array or strings
   }
 
+
+  /** Fetch json datas.
+  * dataUrl is in utils/constants
+  * dataUrl just has to be updated for API
+  */
   async fetchDatas() {
     const response = await fetch(dataUrl)
     if (response.ok) {
