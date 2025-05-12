@@ -1,12 +1,10 @@
 import { recipeCardTemplate } from "../components/recipeCard.js";
 import { updateRecipeCounter } from "./counter.js";
-import {
-  getTagsListsFromRecipes,
-  updateListTagsFromRecipes,
-  filterRecipesWithTags,
-} from "../search/tags.js";
+import { filterRecipesWithTags, manageTagsSearch } from "../search/tags.js";
+import { getTagsListsFromRecipes, displayTagsCard, manageTags } from "../pages/tags.js";
 import { searchRecipes } from "../search/recipeSearch.js";
 import { sanitize } from "../utils/functions.js";
+import { ingredients, appliances, ustensils } from "../utils/constants.js";
 
 /** display active recipes
  * @param recipes {object}  app.recipes from current app instance
@@ -27,8 +25,16 @@ export function displayRecipes(recipes) {
  * @return undefined
  */
 export function displayAndManageIndexPage(app) {
-  getTagsListsFromRecipes(app);
-  updateListTagsFromRecipes(app);
+  getTagsListsFromRecipes(app)
+  displayTagsCard(app.ingredients, ingredients);
+  displayTagsCard(app.appliances, appliances);
+  displayTagsCard(app.ustensils, ustensils);
+  manageTags(ingredients.en);
+  manageTags(appliances.en);
+  manageTags(ustensils.en);
+  manageTagsSearch(app, ingredients.en);
+  manageTagsSearch(app, appliances.en);
+  manageTagsSearch(app, ustensils.en);
   displayRecipes(app.recipes);
 }
 
