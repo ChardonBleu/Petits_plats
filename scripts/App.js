@@ -15,7 +15,6 @@ class App {
 
   /** Fetch json datas.
    * dataUrl is in utils/constants
-   * dataUrl just has to be updated for API
    */
   async fetchDatas() {
     const response = await fetch(dataUrl);
