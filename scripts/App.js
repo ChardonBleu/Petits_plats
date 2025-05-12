@@ -1,14 +1,6 @@
 import { Recipe } from "./models/Recipe.js";
-import {
-  displayAndManageIndexPage,
-  managePrincipalSearch,
-} from "./pages/recipes.js";
-import {
-  displayTagsCard,
-  manageTags,
-  manageTagsSearch,
-} from "./search/tags.js";
-import { ingredients, appliances, ustensils, dataUrl } from "./utils/constants.js";
+import { displayAndManageIndexPage, managePrincipalSearch } from "./pages/recipes.js";
+import { dataUrl } from "./utils/constants.js";
 class App {
   constructor() {
     this.recipes = []; // Array or Recipe
@@ -33,15 +25,6 @@ class App {
   async main() {
     this.recipes = await this.fetchDatas();
     displayAndManageIndexPage(this);
-    displayTagsCard(app.ingredients, ingredients);
-    displayTagsCard(app.appliances, appliances);
-    displayTagsCard(app.ustensils, ustensils);
-    manageTags(ingredients.en);
-    manageTags(appliances.en);
-    manageTags(ustensils.en);
-    manageTagsSearch(app, ingredients.en);
-    manageTagsSearch(app, appliances.en);
-    manageTagsSearch(app, ustensils.en);
     managePrincipalSearch(this);
   }
 }

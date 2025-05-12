@@ -13,8 +13,10 @@ export class Recipe {
 
   get ingredientsList() {
     // Array if strings
-    return this.ingredients.map((ingredient) =>
-      ingredient.ingredient.toLowerCase(),
-    );
+    const ingredientsList = []
+    for (const ingredient of this.ingredients) {
+      ingredientsList.push(ingredient.ingredient.toLowerCase())
+    }
+    return ingredientsList
   }
 }
