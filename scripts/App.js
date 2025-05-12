@@ -1,4 +1,3 @@
-import { recipes } from "./data/recipes.js";
 import { Recipe } from "./models/Recipe.js";
 import {
   displayAndManageIndexPage,
@@ -9,7 +8,7 @@ import {
   manageTags,
   manageTagsSearch,
 } from "./search/tags.js";
-import { ingredients, appliances, ustensils } from "./utils/constants.js";
+import { ingredients, appliances, ustensils, dataUrl } from "./utils/constants.js";
 class App {
   constructor() {
     this.recipes = []; // Array or Recipe
@@ -21,12 +20,18 @@ class App {
     this.ustensilsSelectedTags = []; // Array or strings
   }
 
-  fetchDatas() {
-    this.recipes = recipes.map((recipe) => new Recipe(recipe));
+  async fetchDatas() {
+    const response = await fetch(dataUrl)
+    if (response.ok) {
+      const recipes = await response.json();
+      return recipes.map((recipe) => new Recipe(recipe));
+    } else {
+      throw new Error("Erreur de chargement des données")
+    }
   }
 
   async main() {
-    this.fetchDatas();
+    this.recipes = await this.fetchDatas();
     displayAndManageIndexPage(this);
     displayTagsCard(app.ingredients, ingredients);
     displayTagsCard(app.appliances, appliances);
