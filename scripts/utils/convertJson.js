@@ -1,3 +1,7 @@
+/** Convert a javascript array to Json file
+ * @param datasArray {array} - javascript array
+ * @return indefined
+ */
 export function convertListOfDictToJson(datasArray) {
   const jsonString = JSON.stringify(datasArray, null, 2);
   // Créer un Blob avec les données JSON

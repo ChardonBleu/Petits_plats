@@ -1,7 +1,8 @@
 import { clearInputTag } from "../pages/tags.js";
 import { findElementByText } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
-import { displayAndManageIndexPage, controlForActivePrincipalSearch } from "../pages/recipes.js";
+import { displayAndManageIndexPage } from "../pages/recipes.js";
+import { controlForActivePrincipalSearch } from "../search/principalSearch.js";
 import { ingredients, appliances, ustensils } from "../utils/constants.js";
 
 /** get app attribute for selected tags
