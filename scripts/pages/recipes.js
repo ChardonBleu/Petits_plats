@@ -72,9 +72,9 @@ export function managePrincipalSearch(app) {
       }
     }
   });
-  clearSearchBtn.addEventListener("click", () => {
+  clearSearchBtn.addEventListener("click", async () => {
     inputSearch.value = "";
-    app.fetchDatas();
+    app.recipes = await app.fetchDatas();
     filterRecipesWithTags(app);
     displayAndManageIndexPage(app);
   });

@@ -194,6 +194,7 @@ function getAppSelectedTagsFromKeyTag(app, tagKey) {
  * @return recipe | undefined {object} - recipe instance from Recipe class
  */
 export function filterRecipesWithTags(app) {
+  console.log(app.recipes)
   app.recipes = app.recipes.filter(function (recipe) {
     const recipeIsOK =
       app.ustensilsSelectedTags.every((item) =>
@@ -279,11 +280,11 @@ function removeTagFromAppAttribute(app, tagKey, tagText) {
  * @param clickedTag {DOM node} - cliked tag element in tag list
  * @return undefined
  */
-function removeTag(app, tagKey, tagText, clickedTag) {
+async function removeTag(app, tagKey, tagText, clickedTag) {
   clickedTag.classList.remove("font-manrope-bold");
   clickedTag.classList.remove("bg-mustard");
   removeTagFromAppAttribute(app, tagKey, tagText);
-  app.fetchDatas();
+  app.recipes = await app.fetchDatas();
   controlForActivePrincipalSearch(app);
   filterRecipesWithTags(app);
   displayAndManageIndexPage(app);
