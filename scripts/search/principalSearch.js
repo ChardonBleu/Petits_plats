@@ -1,45 +1,6 @@
 import { displayAndManageIndexPage } from "../pages/recipes.js";
 import { validateSearchInput } from "../pages/principalSearch.js";
 
-/** Search user input in recipe name
- * @param recipe {object} - Recipe instance
- * @param searchString {string} - user input
- * @return boolean - return true if user input is in recipe name
- */
-function stringInName(recipe, searchString) {
-  const recipeName = recipe.name.toLowerCase();
-  if (recipeName.indexOf(searchString) !== -1) {
-    return true;
-  }
-  return false;
-}
-
-/** Search user input in recipe ingredients
- * @param recipe {object} - Recipe instance
- * @param searchString {string} - user input
- * @return boolean - return true if user input is in recipe ingredients
- */
-function stringInIngredients(recipe, searchString) {
-  for (const ingredient of recipe.ingredientsList) {
-    if (ingredient === searchString) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/** Search user input in recipe description
- * @param recipe {object} - Recipe instance
- * @param searchString {string} - user input
- * @return boolean - return true if user input is in recipe description
- */
-function stringInDescription(recipe, searchString) {
-  if (recipe.description.toLowerCase().indexOf(searchString) !== -1) {
-    return true;
-  }
-  return false;
-}
-
 /** When user makes tag search while principal search has non empty input
  * @param app {object} - app instance from App class
  * @return undefined
@@ -54,6 +15,10 @@ export function controlForActivePrincipalSearch(app) {
   }
 }
 
+/** Display info when no recipe has been found
+ * @param searchString {string} - user search input
+ * @return undefined
+ */
 function displayInfoSearch(searchString) {
   const searchAlert = document.getElementById("searchAlert");
   searchAlert.innerHTML = `
@@ -61,6 +26,9 @@ function displayInfoSearch(searchString) {
   `;
 }
 
+/** Mask info when recipes has been found or user makes new search
+ * @return undefined
+ */
 export function maskInfoSearch() {
   const searchAlert = document.getElementById("searchAlert");
   searchAlert.innerHTML = "";
@@ -74,19 +42,29 @@ export function maskInfoSearch() {
  */
 export function searchRecipes(app, searchString) {
   searchString = searchString.toLowerCase();
-  const selectedRecipes = [];
-  for (const recipe of app.recipes) {
-    if (stringInName(recipe, searchString)) {
-      selectedRecipes.push(recipe);
-    } else if (stringInIngredients(recipe, searchString)) {
-      selectedRecipes.push(recipe);
-    } else if (stringInDescription(recipe, searchString)) {
-      selectedRecipes.push(recipe);
-    }
-  }
-  if (selectedRecipes.length > 0) {
+  let recipesWithSearchInName = app.recipes.filter((recipe) =>
+    recipe.name.toLowerCase().includes(searchString),
+  );
+  let recipesWithSearchInIngredients = app.recipes.filter(
+    (recipe) =>
+      recipe.ingredientsList
+        .map((ingredient) => ingredient.includes(searchString))
+        .reduce((acc, val) => acc || val) &&
+      !recipesWithSearchInName.includes(recipe),
+  );
+  let recipesWithSearchInDescription = app.recipes.filter(
+    (recipe) =>
+      recipe.description.toLowerCase().includes(searchString) &&
+      !recipesWithSearchInIngredients.includes(recipe) &&
+      !recipesWithSearchInName.includes(recipe),
+  );
+
+  app.recipes = recipesWithSearchInName
+    .concat(recipesWithSearchInIngredients)
+    .concat(recipesWithSearchInDescription);
+
+  if (app.recipes.length > 0) {
     maskInfoSearch();
-    app.recipes = selectedRecipes;
     displayAndManageIndexPage(app);
   } else {
     displayInfoSearch(searchString);

@@ -15,7 +15,7 @@ import { manageTagsSearch } from "../search/tagsFilters.js";
 export function displayRecipes(recipes) {
   const section = document.getElementById("recipes");
   section.innerHTML = "";
-  recipes.forEach((recipe) => {
+  recipes = recipes.map((recipe) => {
     const recipeArticle = recipeCardTemplate(recipe);
     section.appendChild(recipeArticle);
   });

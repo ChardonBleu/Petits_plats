@@ -48,7 +48,7 @@ export function displayTagsCard(tagsList, tagKey) {
   const templateIngredientCard = tagFilterTemplate(tagKey);
   ingredientTags.innerHTML = templateIngredientCard;
   const ingredients = document.getElementById(tagKeyLower);
-  tagsList.forEach((tag) => {
+  tagsList = tagsList.map((tag) => {
     const option = optionTagTemplate(tag);
     ingredients.appendChild(option);
   });
@@ -60,22 +60,13 @@ export function displayTagsCard(tagsList, tagKey) {
  * @return undefined
  */
 export function getTagsListsFromRecipes(app) {
-  let ingredients = [];
-  let appliances = [];
-  let ustensils = [];
+  app.ingredients = app.recipes.map((recipe) => recipe.ingredientsList).flat();
+  app.appliances = app.recipes.map((recipe) => recipe.appliance.toLowerCase());
+  app.ustensils = app.recipes.map((recipe) => recipe.ustensils).flat();
 
-  app.recipes.forEach((recipe) => {
-    recipe.ingredientsList.forEach((ingredient) =>
-      ingredients.push(ingredient.toLowerCase()),
-    );
-    appliances.push(recipe.appliance.toLowerCase());
-    recipe.ustensils.forEach((ustensil) =>
-      ustensils.push(ustensil.toLowerCase()),
-    );
-  });
-  app.ingredients = sortAndRemovesDuplicates(ingredients);
-  app.appliances = sortAndRemovesDuplicates(appliances);
-  app.ustensils = sortAndRemovesDuplicates(ustensils);
+  app.ingredients = sortAndRemovesDuplicates(app.ingredients);
+  app.appliances = sortAndRemovesDuplicates(app.appliances);
+  app.ustensils = sortAndRemovesDuplicates(app.ustensils);
 }
 
 /** Update app list tags on index page based on user input in serach tag element
