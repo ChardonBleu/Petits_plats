@@ -3,25 +3,7 @@ import { findElementByText } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
 import { displayAndManageIndexPage } from "../pages/recipes.js";
 import { controlForActivePrincipalSearch } from "../search/principalSearch.js";
-import { ingredients, appliances, ustensils } from "../utils/constants.js";
-
-/** get app attribute for selected tags
- * @param app {object} - app instance from App class
- * @param tagKey {string} -"ingredients" or "appliances" or "ustensils"
- * @return Array[string] - app.ingredientsSelectedTags or app.appliancesSelectedTags or app.ustensilsSelectedTags
- */
-function getAppSelectedTagsFromKeyTag(app, tagKey) {
-  switch (tagKey) {
-    case ingredients.en:
-      return app.ingredientsSelectedTags;
-    case appliances.en:
-      return app.appliancesSelectedTags;
-    case ustensils.en:
-      return app.ustensilsSelectedTags;
-    default:
-      throw new Error("catégorie de tag non connue");
-  }
-}
+import { SelectedTagFactory } from "../factories/SelectedTagFactory.js";
 
 /** return recipe if ingredients or appliances or ustensils for this recipe are in selected tags.
  * @param app {object} - app instance from App class
@@ -48,19 +30,9 @@ export function filterRecipesWithTags(app) {
  * @return undefined
  */
 function memorizeTagInAppAttribute(app, tagKey, tagText) {
-  switch (tagKey) {
-    case ingredients.en:
-      app.ingredientsSelectedTags.push(tagText);
-      break;
-    case appliances.en:
-      app.appliancesSelectedTags.push(tagText);
-      break;
-    case ustensils.en:
-      app.ustensilsSelectedTags.push(tagText);
-      break;
-    default:
-      throw new Error("catégorie de tag non connue");
-  }
+  let selectedTagsFactory = new SelectedTagFactory(app, tagKey)
+  let selectedTag = selectedTagsFactory.selectedTag
+  selectedTag.push(tagText);
 }
 
 /** After clicking on tag memorize in app and update tag list and display index with new recipes list
@@ -83,25 +55,9 @@ function memorizeTag(app, tagKey, tagText) {
  * @return undefined
  */
 function removeTagFromAppAttribute(app, tagKey, tagText) {
-  switch (tagKey) {
-    case ingredients.en:
-      app.ingredientsSelectedTags = app.ingredientsSelectedTags.filter(
-        (item) => item != tagText,
-      );
-      break;
-    case appliances.en:
-      app.appliancesSelectedTags = app.appliancesSelectedTags.filter(
-        (item) => item != tagText,
-      );
-      break;
-    case ustensils.en:
-      app.ustensilsSelectedTags = app.ustensilsSelectedTags.filter(
-        (item) => item != tagText,
-      );
-      break;
-    default:
-      throw new Error("catégorie de tag non connue");
-  }
+  let selectedTagsFactory = new SelectedTagFactory(app, tagKey)
+  selectedTagsFactory.selectedTag = selectedTagsFactory.selectedTag.filter((item) => item != tagText);
+  selectedTagsFactory.update(app, tagKey)
 }
 
 /** After clicking on close button tag remove tag from app and update tag list and display index with new recipes list
@@ -130,7 +86,8 @@ function colorizeSelectedTags(app, tagKey) {
   const tagKeyLower = tagKey.toLowerCase();
   const tagsListID = "#" + tagKeyLower + " li";
   const tagsList = document.querySelectorAll(tagsListID);
-  let selectedTagsAttribute = getAppSelectedTagsFromKeyTag(app, tagKey);
+  let selectedTagsFactory = new SelectedTagFactory(app, tagKey);
+  let selectedTagsAttribute = selectedTagsFactory.selectedTag
   tagsList.forEach((tag) => {
     const removeTagBtn = tag.querySelector("i").parentElement;
     const tagTextElement = tag.querySelector("p");
@@ -162,7 +119,8 @@ export function manageTagsSearch(app, tagKey) {
     const tagText = tagTextElement.innerText;
 
     tagTextElement.addEventListener("click", () => {
-      let selectedTagsAttribute = getAppSelectedTagsFromKeyTag(app, tagKey);
+      let selectedTagsFactory = new SelectedTagFactory(app, tagKey);
+      let selectedTagsAttribute = selectedTagsFactory.selectedTag
       if (!selectedTagsAttribute.includes(tagText)) {
         removeTagBtn.classList.remove("hidden");
         const externalTagBtn = tagButtonTemplate(tagText);
