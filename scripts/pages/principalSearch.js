@@ -7,18 +7,15 @@ import { displayAndManageIndexPage } from "./recipes.js";
  * @param inputSearch {DOM node}  input node with input user for principal search
  * @return Array(boolean, string)  boolean for validation and string for sanitized input
  *  */
-export function validateSearchInput(inputSearch) {
+export function validateSearchInput() {
+  const inputSearch = document.getElementById("prinicpalSearchInput");
   const searchError = document.getElementById("searchAlert");
   if (inputSearch.checkValidity()) {
     searchError.innerHTML = ``;
-    searchError.classList.add("hidden");
-    searchError.classList.remove("flex");
     return [true, sanitize(inputSearch.value)];
   } else {
     searchError.innerHTML = `Veuillez entrer au moins 3 caractères dans le champ de recherche.`;
-    searchError.classList.remove("hidden");
-    searchError.classList.add("flex");
-    return [true, ""];
+    return [false, ""];
   }
 }
 
@@ -31,7 +28,7 @@ export function managePrincipalSearch(app) {
   const inputSearch = document.getElementById("prinicpalSearchInput");
   const clearSearchBtn = document.getElementById("clearPrincipalSearchBtn");
   searchBtn.addEventListener("click", () => {
-    const [valid, searchString] = validateSearchInput(inputSearch);
+    const [valid, searchString] = validateSearchInput();
     if (valid) {
       searchRecipes(app, searchString);
     }
@@ -39,7 +36,7 @@ export function managePrincipalSearch(app) {
   inputSearch.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      const [valid, searchString] = validateSearchInput(inputSearch);
+      const [valid, searchString] = validateSearchInput();
       if (valid) {
         searchRecipes(app, searchString);
       }

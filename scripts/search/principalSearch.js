@@ -56,7 +56,6 @@ export function controlForActivePrincipalSearch(app) {
 
 function displayInfoSearch(searchString) {
   const searchAlert = document.getElementById("searchAlert");
-  searchAlert.classList.remove("hidden");
   searchAlert.innerHTML = `
     Auncune recette ne contient ${searchString}. Vous pouvez chercher «Tarte aux pommes», «poisson», etc
   `;
@@ -64,7 +63,6 @@ function displayInfoSearch(searchString) {
 
 export function maskInfoSearch() {
   const searchAlert = document.getElementById("searchAlert");
-  searchAlert.classList.add("hidden");
   searchAlert.innerHTML = "";
 }
 
