@@ -30,8 +30,8 @@ export function filterRecipesWithTags(app) {
  * @return undefined
  */
 function memorizeTagInAppAttribute(app, tagKey, tagText) {
-  let selectedTagsFactory = new SelectedTagFactory(app, tagKey)
-  let selectedTag = selectedTagsFactory.selectedTag
+  let selectedTagsFactory = new SelectedTagFactory(app, tagKey);
+  let selectedTag = selectedTagsFactory.selectedTag;
   selectedTag.push(tagText);
 }
 
@@ -55,9 +55,11 @@ function memorizeTag(app, tagKey, tagText) {
  * @return undefined
  */
 function removeTagFromAppAttribute(app, tagKey, tagText) {
-  let selectedTagsFactory = new SelectedTagFactory(app, tagKey)
-  selectedTagsFactory.selectedTag = selectedTagsFactory.selectedTag.filter((item) => item != tagText);
-  selectedTagsFactory.update(app, tagKey)
+  let selectedTagsFactory = new SelectedTagFactory(app, tagKey);
+  selectedTagsFactory.selectedTag = selectedTagsFactory.selectedTag.filter(
+    (item) => item != tagText,
+  );
+  selectedTagsFactory.update(app, tagKey);
 }
 
 /** After clicking on close button tag remove tag from app and update tag list and display index with new recipes list
@@ -87,7 +89,7 @@ function colorizeSelectedTags(app, tagKey) {
   const tagsListID = "#" + tagKeyLower + " li";
   const tagsList = document.querySelectorAll(tagsListID);
   let selectedTagsFactory = new SelectedTagFactory(app, tagKey);
-  let selectedTagsAttribute = selectedTagsFactory.selectedTag
+  let selectedTagsAttribute = selectedTagsFactory.selectedTag;
   tagsList.forEach((tag) => {
     const removeTagBtn = tag.querySelector("i").parentElement;
     const tagTextElement = tag.querySelector("p");
@@ -120,7 +122,7 @@ export function manageTagsSearch(app, tagKey) {
 
     tagTextElement.addEventListener("click", () => {
       let selectedTagsFactory = new SelectedTagFactory(app, tagKey);
-      let selectedTagsAttribute = selectedTagsFactory.selectedTag
+      let selectedTagsAttribute = selectedTagsFactory.selectedTag;
       if (!selectedTagsAttribute.includes(tagText)) {
         removeTagBtn.classList.remove("hidden");
         const externalTagBtn = tagButtonTemplate(tagText);

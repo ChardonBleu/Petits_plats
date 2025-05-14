@@ -1,4 +1,4 @@
-# ![Les petits plats](assets/images/logo.png)
+# ![Les petits plats](assets/icons/logo.png)
 
 ## Les petits plats
 
