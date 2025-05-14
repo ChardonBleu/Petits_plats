@@ -1,5 +1,5 @@
 import { displayAndManageIndexPage } from "../pages/recipes.js";
-import { validateSearchInput } from "../pages/principalSearch.js";
+import { validateSearchInput } from "../pages/mainSearch.js";
 
 /** Search user input in recipe name
  * @param recipe {object} - Recipe instance
@@ -40,7 +40,7 @@ function stringInDescription(recipe, searchString) {
   return false;
 }
 
-/** When user makes tag search while principal search has non empty input
+/** When user makes tag search while man search has non empty input
  * @param app {object} - app instance from App class
  * @return undefined
  */
