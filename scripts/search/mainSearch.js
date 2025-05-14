@@ -1,5 +1,5 @@
 import { displayAndManageIndexPage } from "../pages/recipes.js";
-import { validateSearchInput } from "../pages/principalSearch.js";
+import { validateSearchInput } from "../pages/mainSearch.js";
 
 /** When user makes tag search while principal search has non empty input
  * @param app {object} - app instance from App class

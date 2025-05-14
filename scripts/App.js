@@ -1,6 +1,6 @@
 import { Recipe } from "./models/Recipe.js";
 import { displayAndManageIndexPage } from "./pages/recipes.js";
-import { managePrincipalSearch } from "./pages/principalSearch.js";
+import { manageMainSearch } from "./pages/mainSearch.js";
 import { dataUrl } from "./utils/constants.js";
 class App {
   constructor() {
@@ -29,7 +29,7 @@ class App {
   async main() {
     this.recipes = await this.fetchDatas();
     displayAndManageIndexPage(this);
-    managePrincipalSearch(this);
+    manageMainSearch(this);
   }
 }
 

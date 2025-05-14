@@ -1,5 +1,5 @@
 import { filterRecipesWithTags } from "../search/tagsFilters.js";
-import { searchRecipes, maskInfoSearch } from "../search/principalSearch.js";
+import { searchRecipes, maskInfoSearch } from "../search/mainSearch.js";
 import { sanitize } from "../utils/functions.js";
 import { displayAndManageIndexPage } from "./recipes.js";
 
@@ -19,11 +19,11 @@ export function validateSearchInput() {
   }
 }
 
-/** eventListeners for principal search
+/** eventListeners for main search
  * @param app {object} - app instance from App class
  * @return undefined
  */
-export function managePrincipalSearch(app) {
+export function manageMainSearch(app) {
   const searchBtn = document.getElementById("principalSearchBtn");
   const inputSearch = document.getElementById("prinicpalSearchInput");
   const clearSearchBtn = document.getElementById("clearPrincipalSearchBtn");
