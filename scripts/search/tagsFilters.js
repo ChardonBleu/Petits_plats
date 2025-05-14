@@ -2,7 +2,7 @@ import { clearInputTag } from "../pages/tags.js";
 import { findElementByText } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
 import { displayAndManageIndexPage } from "../pages/recipes.js";
-import { controlForActivePrincipalSearch } from "../search/principalSearch.js";
+import { controlForActivePrincipalSearch } from "./mainSearch.js";
 import { SelectedTagFactory } from "../factories/SelectedTagFactory.js";
 
 /** return recipe if ingredients or appliances or ustensils for this recipe are in selected tags.
