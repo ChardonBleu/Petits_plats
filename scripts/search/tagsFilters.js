@@ -3,23 +3,6 @@ import { findElementByText } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
 import { SelectedTagFactory } from "../factories/SelectedTagFactory.js";
 
-/** return recipe if ingredients or appliances or ustensils for this recipe are in selected tags.
- * @param app {object} - app instance from App class
- * @return recipe | undefined {object} - recipe instance from Recipe class
- */
-export function filterRecipesWithTags(app) {
-  app.recipes = app.recipes.filter(function (recipe) {
-    const recipeIsOK =
-      app.ustensilsSelectedTags.every((item) =>
-        recipe.ustensils.includes(item.toLowerCase()),
-      ) &&
-      app.ingredientsSelectedTags.every((item) =>
-        recipe.ingredientsList.includes(item.toLowerCase()),
-      ) &&
-      recipe.appliance.includes(app.appliancesSelectedTags);
-    return recipeIsOK ? recipe : undefined;
-  });
-}
 
 /** add tag in app attribute app.ingredientsSelectedTags or app.appliancesSelectedTags or app.ustensilsSelectedTags
  * @param app {object} - app instance from App class
@@ -42,7 +25,7 @@ function memorizeTagInAppAttribute(app, tagKey, tagText) {
  */
 function memorizeTag(app, tagKey, tagText) {
   memorizeTagInAppAttribute(app, tagKey, tagText);
-  filterRecipesWithTags(app);
+  app.filterRecipesWithTags();
   app.displayAndManageIndexPage();
 }
 
@@ -73,7 +56,7 @@ async function removeTag(app, tagKey, tagText, clickedTag) {
   removeTagFromAppAttribute(app, tagKey, tagText);
   app.recipes = await app.fetchDatas();
   app.controlForActivePrincipalSearch();
-  filterRecipesWithTags(app);
+  app.filterRecipesWithTags();
   app.displayAndManageIndexPage();
 }
 

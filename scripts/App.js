@@ -9,16 +9,9 @@ import {
   stringInIngredients,
   stringInDescription,
 } from "./search/mainSearch.js";
-import {
-  // getTagsListsFromRecipes,
-  displayTagsCard,
-  manageTags,
-} from "./pages/tags.js";
+import { displayTagsCard, manageTags } from "./pages/tags.js";
 import { ingredients, appliances, ustensils } from "./utils/constants.js";
-import {
-  manageTagsSearch,
-  filterRecipesWithTags,
-} from "./search/tagsFilters.js";
+import { manageTagsSearch } from "./search/tagsFilters.js";
 import { sortAndRemovesDuplicates } from "./utils/functions.js";
 class App {
   constructor() {
@@ -42,6 +35,23 @@ class App {
     } else {
       throw new Error("Erreur de chargement des données");
     }
+  }
+
+  /** display page with new active datas: recipes and tag lists
+   * @return undefined
+   */
+  displayAndManageIndexPage() {
+    this.getTagsListsFromRecipes();
+    displayTagsCard(this.ingredients, ingredients);
+    displayTagsCard(this.appliances, appliances);
+    displayTagsCard(this.ustensils, ustensils);
+    manageTags(ingredients.en);
+    manageTags(appliances.en);
+    manageTags(ustensils.en);
+    manageTagsSearch(this, ingredients.en);
+    manageTagsSearch(this, appliances.en);
+    manageTagsSearch(this, ustensils.en);
+    displayRecipes(this.recipes);
   }
 
   // **************   tags filters *************************************
@@ -69,23 +79,23 @@ class App {
     this.ustensils = sortAndRemovesDuplicates(ustensils);
   }
 
-  // ************** index page ****************************
-
-  /** display page with new active datas: recipes and tag lists
-   * @return undefined
+  /** return recipe if ingredients or appliances or ustensils for this recipe are in selected tags.
+   * @param app {object} - app instance from App class
+   * @return recipe | undefined {object} - recipe instance from Recipe class
    */
-  displayAndManageIndexPage() {
-    this.getTagsListsFromRecipes();
-    displayTagsCard(this.ingredients, ingredients);
-    displayTagsCard(this.appliances, appliances);
-    displayTagsCard(this.ustensils, ustensils);
-    manageTags(ingredients.en);
-    manageTags(appliances.en);
-    manageTags(ustensils.en);
-    manageTagsSearch(this, ingredients.en);
-    manageTagsSearch(this, appliances.en);
-    manageTagsSearch(this, ustensils.en);
-    displayRecipes(this.recipes);
+  filterRecipesWithTags() {
+    const app = this
+    this.recipes = this.recipes.filter(function (recipe) {
+      const recipeIsOK =
+        app.ustensilsSelectedTags.every((item) =>
+          recipe.ustensils.includes(item.toLowerCase()),
+        ) &&
+        app.ingredientsSelectedTags.every((item) =>
+          recipe.ingredientsList.includes(item.toLowerCase()),
+        ) &&
+        recipe.appliance.includes(app.appliancesSelectedTags);
+      return recipeIsOK ? recipe : undefined;
+    });
   }
 
   // ***************** index main search **********************
@@ -155,7 +165,7 @@ class App {
       inputSearch.value = "";
       maskInfoSearch();
       this.recipes = await this.fetchDatas();
-      filterRecipesWithTags(this);
+      this.filterRecipesWithTags();
       this.displayAndManageIndexPage();
     });
   }
