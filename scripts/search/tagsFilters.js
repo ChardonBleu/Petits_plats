@@ -1,8 +1,6 @@
 import { clearInputTag } from "../pages/tags.js";
 import { findElementByText } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
-import { displayAndManageIndexPage } from "../pages/recipes.js";
-import { controlForActivePrincipalSearch } from "./mainSearch.js";
 import { SelectedTagFactory } from "../factories/SelectedTagFactory.js";
 
 /** return recipe if ingredients or appliances or ustensils for this recipe are in selected tags.
@@ -45,7 +43,7 @@ function memorizeTagInAppAttribute(app, tagKey, tagText) {
 function memorizeTag(app, tagKey, tagText) {
   memorizeTagInAppAttribute(app, tagKey, tagText);
   filterRecipesWithTags(app);
-  displayAndManageIndexPage(app);
+  app.displayAndManageIndexPage();
 }
 
 /** remove tag from app attribute app.ingredientsSelectedTags or app.appliancesSelectedTags or app.ustensilsSelectedTags
@@ -74,9 +72,9 @@ async function removeTag(app, tagKey, tagText, clickedTag) {
   clickedTag.classList.remove("bg-mustard");
   removeTagFromAppAttribute(app, tagKey, tagText);
   app.recipes = await app.fetchDatas();
-  controlForActivePrincipalSearch(app);
+  app.controlForActivePrincipalSearch();
   filterRecipesWithTags(app);
-  displayAndManageIndexPage(app);
+  app.displayAndManageIndexPage();
 }
 
 /** Colorize and display remove button for selected Tags
