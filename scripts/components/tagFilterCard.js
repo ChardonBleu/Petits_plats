@@ -1,3 +1,6 @@
+/** Composant de filtre de tag
+ */
+
 import { capitalizeSentence } from "../utils/functions.js";
 
 export function tagFilterTemplate(tagTitle) {

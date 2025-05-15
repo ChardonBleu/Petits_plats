@@ -13,6 +13,13 @@ import { displayTagsCard, manageTags } from "./pages/tags.js";
 import { ingredients, appliances, ustensils } from "./utils/constants.js";
 import { manageTagsSearch } from "./search/tagsFilters.js";
 import { sortAndRemovesDuplicates } from "./utils/functions.js";
+
+/** Fichier d'entrée du javascript, importé dans index.html
+ * La classe App sert à modéliser l'application et contient
+ * les méthodes et fonctions permettant l'affichage et la
+ * gestion de la page index avec les fonctionalités de
+ * recherche et de filtre
+ */
 class App {
   constructor() {
     this.recipes = []; // Array or Recipe
@@ -84,7 +91,7 @@ class App {
    * @return recipe | undefined {object} - recipe instance from Recipe class
    */
   filterRecipesWithTags() {
-    const app = this
+    const app = this;
     this.recipes = this.recipes.filter(function (recipe) {
       const recipeIsOK =
         app.ustensilsSelectedTags.every((item) =>

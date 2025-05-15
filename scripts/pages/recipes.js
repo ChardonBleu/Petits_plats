@@ -1,3 +1,6 @@
+/** Création des cards de recette
+ */
+
 import { recipeCardTemplate } from "../components/recipeCard.js";
 import { updateRecipeCounter } from "./counter.js";
 

@@ -1,3 +1,6 @@
+/** Composant de bouton de card de recettes
+ */
+
 export function ingredientTemplate(ingredient) {
   const div = document.createElement("div");
   div.setAttribute("class", "w-[40%] flex flex-col mb-4");
