@@ -1,27 +1,10 @@
+/** Fonctions permettant la gestion des filtres par tags
+ */
+
 import { clearInputTag } from "../pages/tags.js";
 import { findElementByText } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
-import { displayAndManageIndexPage } from "../pages/recipes.js";
-import { controlForActivePrincipalSearch } from "./mainSearch.js";
 import { SelectedTagFactory } from "../factories/SelectedTagFactory.js";
-
-/** return recipe if ingredients or appliances or ustensils for this recipe are in selected tags.
- * @param app {object} - app instance from App class
- * @return recipe | undefined {object} - recipe instance from Recipe class
- */
-export function filterRecipesWithTags(app) {
-  app.recipes = app.recipes.filter(function (recipe) {
-    const recipeIsOK =
-      app.ustensilsSelectedTags.every((item) =>
-        recipe.ustensils.includes(item.toLowerCase()),
-      ) &&
-      app.ingredientsSelectedTags.every((item) =>
-        recipe.ingredientsList.includes(item.toLowerCase()),
-      ) &&
-      recipe.appliance.includes(app.appliancesSelectedTags);
-    return recipeIsOK ? recipe : undefined;
-  });
-}
 
 /** add tag in app attribute app.ingredientsSelectedTags or app.appliancesSelectedTags or app.ustensilsSelectedTags
  * @param app {object} - app instance from App class
@@ -44,8 +27,8 @@ function memorizeTagInAppAttribute(app, tagKey, tagText) {
  */
 function memorizeTag(app, tagKey, tagText) {
   memorizeTagInAppAttribute(app, tagKey, tagText);
-  filterRecipesWithTags(app);
-  displayAndManageIndexPage(app);
+  app.filterRecipesWithTags();
+  app.displayAndManageIndexPage();
 }
 
 /** remove tag from app attribute app.ingredientsSelectedTags or app.appliancesSelectedTags or app.ustensilsSelectedTags
@@ -74,9 +57,9 @@ async function removeTag(app, tagKey, tagText, clickedTag) {
   clickedTag.classList.remove("bg-mustard");
   removeTagFromAppAttribute(app, tagKey, tagText);
   app.recipes = await app.fetchDatas();
-  controlForActivePrincipalSearch(app);
-  filterRecipesWithTags(app);
-  displayAndManageIndexPage(app);
+  app.controlForActivePrincipalSearch();
+  app.filterRecipesWithTags();
+  app.displayAndManageIndexPage();
 }
 
 /** Colorize and display remove button for selected Tags

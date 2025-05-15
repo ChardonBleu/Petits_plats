@@ -1,8 +1,10 @@
+/** Fonctions gérant l'affichage des filtres par tag
+ */
+
 import {
   tagFilterTemplate,
   optionTagTemplate,
 } from "../components/tagFilterCard.js";
-import { sortAndRemovesDuplicates } from "../utils/functions.js";
 
 /** For openning list tags
  * @param listTags {DOM node} - ul element with all active tags
@@ -52,21 +54,6 @@ export function displayTagsCard(tagsList, tagKey) {
     const option = optionTagTemplate(tag);
     ingredients.appendChild(option);
   });
-}
-
-/** Update app attributes: app.ingredients, app.appliances and app.ustensils
- * based on current app.recipes
- * @param app {object} - app instance from App class
- * @return undefined
- */
-export function getTagsListsFromRecipes(app) {
-  app.ingredients = app.recipes.map((recipe) => recipe.ingredientsList).flat();
-  app.appliances = app.recipes.map((recipe) => recipe.appliance.toLowerCase());
-  app.ustensils = app.recipes.map((recipe) => recipe.ustensils).flat();
-
-  app.ingredients = sortAndRemovesDuplicates(app.ingredients);
-  app.appliances = sortAndRemovesDuplicates(app.appliances);
-  app.ustensils = sortAndRemovesDuplicates(app.ustensils);
 }
 
 /** Update app list tags on index page based on user input in serach tag element
