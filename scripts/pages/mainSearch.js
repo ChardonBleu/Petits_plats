@@ -1,3 +1,7 @@
+/** Validation des données saisies par l'utilisateur
+ * pour la recherche principale
+ */
+
 import { sanitize } from "../utils/functions.js";
 
 /** manage input validity before search

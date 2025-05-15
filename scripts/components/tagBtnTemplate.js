@@ -1,3 +1,6 @@
+/** Composant de bouton de tag sélectionné
+ */
+
 export function tagButtonTemplate(tagText) {
   const button = document.createElement("button");
   button.setAttribute(

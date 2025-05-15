@@ -1,3 +1,7 @@
+/** Fonctions gérant la recherche et l'affichage des messages d'info
+ * pour la recherche principale
+ */
+
 /** Search user input in recipe name
  * @param recipe {object} - Recipe instance
  * @param searchString {string} - user input

@@ -1,8 +1,10 @@
+/** Fonctions permettant la gestion des filtres par tags
+ */
+
 import { clearInputTag } from "../pages/tags.js";
 import { findElementByText } from "../utils/functions.js";
 import { tagButtonTemplate } from "../components/tagBtnTemplate.js";
 import { SelectedTagFactory } from "../factories/SelectedTagFactory.js";
-
 
 /** add tag in app attribute app.ingredientsSelectedTags or app.appliancesSelectedTags or app.ustensilsSelectedTags
  * @param app {object} - app instance from App class

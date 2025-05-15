@@ -1,3 +1,7 @@
+/** Factory pour la gestion des filstres
+ * par tag en focntion de leur type
+ */
+
 export class SelectedTagFactory {
   constructor(data, type) {
     switch (type) {

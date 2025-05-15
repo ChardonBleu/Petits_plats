@@ -1,3 +1,6 @@
+/** Fonctions gérant l'affichage des filtres par tag
+ */
+
 import {
   tagFilterTemplate,
   optionTagTemplate,

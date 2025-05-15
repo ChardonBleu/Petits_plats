@@ -1,3 +1,6 @@
+/** Modélisation des recettes
+ */
+
 export class Recipe {
   constructor(data) {
     this.id = data.id; //number
